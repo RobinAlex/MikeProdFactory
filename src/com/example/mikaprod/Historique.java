@@ -50,9 +50,7 @@ public class Historique {
 		this.dateFin = dateFin;
 	}
 	
-	// CONSTRUCTOR
-	
-	
+	// CONSTRUCTOR	
 	public Historique() {
 	
 	}
