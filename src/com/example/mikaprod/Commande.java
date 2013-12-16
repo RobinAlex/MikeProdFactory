@@ -1,5 +1,7 @@
 package com.example.mikaprod;
 
+import java.util.ArrayList;
+
 public class Commande {
 	
 	private int id;
@@ -55,6 +57,19 @@ public class Commande {
 	
 	public Commande() {
 		
+	}
+	
+	
+	// METHODES
+	public ArrayList<Produit> CreerProduits() {
+		
+		ArrayList<Produit> listeProduit = new ArrayList<Produit>(); 
+		
+		for (int i = 0; i < this.getQuantite(); i++) {
+			listeProduit.add(new Produit(-1, this, null, true, false));
+		}
+		
+		return listeProduit;
 	}
 	
 	
