@@ -73,7 +73,7 @@ public class Historique {
 		
 		Boolean status = false;
 		Date dateActuelle = new Date();
-		SimpleDateFormat formatDate = new SimpleDateFormat("dd/MM/yyyy kk:mm:ss"); 
+		SimpleDateFormat formatDate = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss"); 
 		
 		if (entree) {
 			// Si entree == true -> Ajout d'une ligne d'entree
