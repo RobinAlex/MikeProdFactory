@@ -58,7 +58,10 @@ public class Produit {
 	
 	// METHODES
 	public Poste getPosteById(int id) {
-		// TODO SQL : Requete get Poste
+		/* TODO SQL : Requete get Poste		 
+		 SELECT * FROM Poste where id = id;
+		*/
+		 
 		return poste;
 	}
 	
@@ -69,8 +72,7 @@ public class Produit {
 		
 		if (this.getPoste() == null) {
 			// Au stock
-			this.setPoste(this.getPosteById(Poste.getIdPremierPoste()));
-			
+			this.setPoste(this.getPosteById(Poste.getIdPremierPoste()));			
 			status = true;
 			
 		} else if (this.getPoste().getOrdreFlux() < Poste.getIdDernierPoste()) {

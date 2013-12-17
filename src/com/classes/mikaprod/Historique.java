@@ -1,5 +1,8 @@
 package com.classes.mikaprod;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class Historique {
 	
 	private Utilisateur utilisateur;
@@ -64,6 +67,57 @@ public class Historique {
 		this.dateDebut = dateDebut;
 		this.dateFin = dateFin;
 	}
+	
+	//METHODES
+	public Boolean AjouterLigneHistorique(Poste poste, Utilisateur utilisateur, Produit produit, Boolean entree) {
+		
+		Boolean status = false;
+		Date dateActuelle = new Date();
+		SimpleDateFormat formatDate = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss"); 
+		
+		if (entree) {
+			// Si entree == true -> Ajout d'une ligne d'entree
+			this.dateDebut = formatDate.format(dateActuelle);
+			this.dateFin = null;
+		} else if (!entree) {
+			// Si entree == false -> Ajout d'une ligne de fin
+			this.dateFin = formatDate.format(dateActuelle);
+			this.dateDebut = null;
+		} else {
+			// Sinon status de la methode false
+			status = false;
+		}
+		
+		if (poste != null) {
+			this.poste = poste;
+		} else {
+			status = false;
+		}
+		
+		if (utilisateur != null) {
+			this.utilisateur = utilisateur;
+		} else {
+			status = false;
+		}
+		
+		if (produit != null) {
+			this.produit = produit;
+		} else {
+			status = false;
+		}		
+		
+		
+		if (status) {
+			// TODO : Ajout de la ligne en db
+			// INSERT INTO Historique (idPoste, idUser, idProduit, dateDebut, 
+			// dateFin) VALUES (poste.getId, utilisateur.getId, produit.getId, 
+			// this.dateDebut, this.dateFin);
+		} 
+		
+		return status;
+		
+	}
+	
 	
 	
 	

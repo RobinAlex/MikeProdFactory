@@ -67,6 +67,10 @@ public class Commande {
 		
 		for (int i = 0; i < this.getQuantite(); i++) {
 			listeProduit.add(new Produit(-1, this, null, true, false));
+			
+			/*
+			 INSERT INTO Produit (idCommande, enAttente, termine) VALUES (this.getId, true, false);
+			 */
 		}
 		
 		return listeProduit;
