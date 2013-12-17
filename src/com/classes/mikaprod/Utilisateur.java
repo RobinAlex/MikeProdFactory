@@ -1,4 +1,4 @@
-package com.example.mikaprod;
+package com.classes.mikaprod;
 
 public class Utilisateur {
 	

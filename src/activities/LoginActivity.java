@@ -1,4 +1,6 @@
-package com.example.mikaprod;
+package activities;
+
+import com.example.mikaprod.R;
 
 import android.os.Bundle;
 import android.app.Activity;

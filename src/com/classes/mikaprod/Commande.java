@@ -1,4 +1,4 @@
-package com.example.mikaprod;
+package com.classes.mikaprod;
 
 import java.util.ArrayList;
 
