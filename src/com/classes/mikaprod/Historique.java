@@ -104,6 +104,11 @@ public class Historique {
 			status = false;
 		}		
 		
+		
+		if (status) {
+			// TODO : Ajout de la ligne en db
+		} 
+		
 		return status;
 		
 	}
