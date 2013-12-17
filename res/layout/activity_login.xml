@@ -9,8 +9,42 @@
     tools:context=".LoginActivity" >
 
     <TextView
+        android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/hello_world" />
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="46dp"
+        android:text="@string/ConnexionPoste"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="@color/Gris" />
+
+    <Spinner
+        android:id="@+id/selectUtilisateur"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/textView1"
+        android:layout_marginTop="30dp"
+        android:entries="@array/ListePosteString" />
+
+    <Spinner
+        android:id="@+id/selectPoste"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/selectUtilisateur"
+        android:entries="@array/ListePosteString" />
+
+    <Button
+        android:id="@+id/ConnexionBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/selectPoste"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="24dp"
+        android:text="@string/ConnexionBtnString"/>
 
 </RelativeLayout>

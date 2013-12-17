@@ -1,5 +1,7 @@
 package com.classes.mikaprod;
 
+import java.util.ArrayList;
+
 public class  Poste {
 	
 	private int id;
@@ -74,7 +76,17 @@ public class  Poste {
 	}
 	
 	
-	
+	public static ArrayList<Poste> GetAll() {
+		
+		ArrayList<Poste> ListePoste = new ArrayList<Poste>() ;
+		
+		// SELECT * FROM Poste ;
+		
+		// TODO : ListePoste = SQLPoste.selectAll()
+		
+		return ListePoste;
+		
+	}
 	
 	
 	

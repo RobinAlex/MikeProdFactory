@@ -78,9 +78,11 @@ public class Historique {
 		if (entree) {
 			// Si entree == true -> Ajout d'une ligne d'entree
 			this.dateDebut = formatDate.format(dateActuelle);
+			this.dateFin = null;
 		} else if (!entree) {
 			// Si entree == false -> Ajout d'une ligne de fin
 			this.dateFin = formatDate.format(dateActuelle);
+			this.dateDebut = null;
 		} else {
 			// Sinon status de la methode false
 			status = false;
@@ -107,6 +109,9 @@ public class Historique {
 		
 		if (status) {
 			// TODO : Ajout de la ligne en db
+			// INSERT INTO Historique (idPoste, idUser, idProduit, dateDebut, 
+			// dateFin) VALUES (poste.getId, utilisateur.getId, produit.getId, 
+			// this.dateDebut, this.dateFin);
 		} 
 		
 		return status;

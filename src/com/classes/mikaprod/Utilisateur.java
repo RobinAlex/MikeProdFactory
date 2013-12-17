@@ -1,5 +1,7 @@
 package com.classes.mikaprod;
 
+import java.util.ArrayList;
+
 public class Utilisateur {
 	
 	private int id;
@@ -62,6 +64,18 @@ public class Utilisateur {
 				
 		return status;
 		
+		
+	}
+	
+	public static ArrayList<Utilisateur> GetAll() {
+		
+		ArrayList<Utilisateur> ListeUtilisateur = new ArrayList<Utilisateur>() ;
+		
+		// SELECT * FROM Utilisateur ;
+		
+		// TODO : ListeUtilisateur = SQLutilisateurs.selectAll()
+		
+		return ListeUtilisateur;
 		
 	}
 	
