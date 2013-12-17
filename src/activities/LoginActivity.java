@@ -53,7 +53,7 @@ public class LoginActivity extends Activity {
 		// Recup element dans le layout
 		spinnerUtilisateur = (Spinner) findViewById(R.id.selectUtilisateur);
 
-		// Recup de tout les utilisateurs
+		// Recup de tous les utilisateurs
 		ArrayList<Utilisateur> ListeUtilisateur = Utilisateur.GetAll();
 
 		// Population du spinner
