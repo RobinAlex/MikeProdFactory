@@ -1,12 +1,16 @@
-package com.example.mikaprod;
+package com.classes.mikaprod;
 
-public class Poste {
+public class  Poste {
 	
 	private int id;
 	private String nom;
 	private int ordreFlux;
 	private Boolean flagFluxFinal;
 	
+	private static int IdPremierPoste;
+	private static int IdDernierPoste;
+	
+
 	// GETTERS
 	public int getId() {
 		return id;
@@ -24,6 +28,14 @@ public class Poste {
 		return flagFluxFinal;
 	}
 	
+	public static int getIdPremierPoste() {
+		return IdPremierPoste;
+	}	
+
+	public static int getIdDernierPoste() {
+		return IdDernierPoste;
+	}
+	
 	// SETTERS
 	public void setId(int id) {
 		this.id = id;
@@ -39,6 +51,13 @@ public class Poste {
 	
 	public void setFlagFluxFinal(Boolean flagFluxFinal) {
 		this.flagFluxFinal = flagFluxFinal;
+	}
+	
+	public static void setIdPremierPoste(int idPremierPoste) {
+		IdPremierPoste = idPremierPoste;
+	}
+	public static void setIdDernierPoste(int idDernierPoste) {
+		IdDernierPoste = idDernierPoste;
 	}
 	
 	

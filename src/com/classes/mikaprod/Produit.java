@@ -1,4 +1,4 @@
-package com.example.mikaprod;
+package com.classes.mikaprod;
 
 public class Produit {
 	
@@ -8,10 +8,10 @@ public class Produit {
 	private Boolean flagEnAttente;
 	private Boolean flagProduitTermine;
 	
-	// GETTERS
+	// GETTERS	
 	public int getId() {
 		return id;
-	}	
+	}
 	public Commande getCommande() {
 		return commande;
 	}	
@@ -53,6 +53,39 @@ public class Produit {
 	}
 	
 	public Produit() {
+	}
+	
+	
+	// METHODES
+	public Poste getPosteById(int id) {
+		// TODO SQL : Requete get Poste
+		return poste;
+	}
+	
+	
+	public boolean PasserAuPosteSuivant() { 
+		
+		boolean status = false;	
+		
+		if (this.getPoste() == null) {
+			// Au stock
+			this.setPoste(this.getPosteById(Poste.getIdPremierPoste()));
+			
+			status = true;
+			
+		} else if (this.getPoste().getOrdreFlux() < Poste.getIdDernierPoste()) {
+			// Si en prod, mais pas au dernier poste
+			this.setPoste(this.getPosteById(this.getPoste().getOrdreFlux() + 1));
+			status = true;
+		
+		} else if (this.getPoste().getOrdreFlux() == Poste.getIdDernierPoste()) {
+			// Au dernier poste
+			this.setFlagProduitTermine(true);
+			status = true;
+			
+		}
+		
+		return status;
 	}
 	
 	
