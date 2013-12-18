@@ -4,6 +4,7 @@ import com.classes.mikaprod.Poste;
 import com.classes.mikaprod.Utilisateur;
 import com.example.mikaprod.R;
 
+import controles.CtrlPoste;
 import controles.CtrlUtilisateur;
 
 import android.os.Bundle;
@@ -56,7 +57,7 @@ public class LoginActivity extends Activity {
 		spinnerUtilisateur = (Spinner) findViewById(R.id.selectUtilisateur);
 
 		// Recup de tous les utilisateurs
-		ArrayList<Utilisateur> ListeUtilisateur = CtrlUtilisateur.GetAll(this);
+		ArrayList<Utilisateur> ListeUtilisateur = CtrlUtilisateur.GetAll(LoginActivity.this);
 
 		// Population du spinner
 		ArrayAdapter<Utilisateur> dataAdapter = new ArrayAdapter<Utilisateur>(
@@ -74,7 +75,7 @@ public class LoginActivity extends Activity {
 		spinnerPoste = (Spinner) findViewById(R.id.selectPoste);
 
 		// Recup de tout les postes
-		ArrayList<Poste> ListePoste = Poste.GetAll();
+		ArrayList<Poste> ListePoste = CtrlPoste.GetAll(LoginActivity.this);
 
 		// Population du spinner
 		ArrayAdapter<Poste> dataAdapter = new ArrayAdapter<Poste>(this,
