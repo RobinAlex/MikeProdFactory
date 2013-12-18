@@ -1,7 +1,11 @@
 package com.classes.mikaprod;
 
-public class Poste {
+import java.io.Serializable;
 
+public class Poste implements Serializable {
+
+	private static final long serialVersionUID = -528010672869529190L;
+	
 	private int id;
 	private String nom;
 	private int ordreFlux;

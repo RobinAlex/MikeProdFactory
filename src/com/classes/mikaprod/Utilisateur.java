@@ -1,7 +1,11 @@
 package com.classes.mikaprod;
 
-public class Utilisateur {
+import java.io.Serializable;
 
+public class Utilisateur implements Serializable {
+
+	private static final long serialVersionUID = 2354605562322514590L;
+	
 	private int id;
 	private String nom;
 	private Poste poste;

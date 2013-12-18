@@ -4,9 +4,15 @@
     <string name="app_name">MikaProd</string>
     <string name="action_settings">Settings</string>
     <string name="ConnexionPoste">Connexion à un poste</string>
-    <string-array name="ListePosteString">
-    </string-array>
+
+    <string-array name="ListePosteString"></string-array>
+
     <string name="ConnexionBtnString">Connecter</string>
+
     <string-array name="ListeUtilisateurString"></string-array>
+
+    <string name="title_activity_menu">MenuActivity</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="deconnexion">Déconnexion</string>
 
 </resources>
