@@ -16,5 +16,6 @@
     <string name="deconnexion">Déconnexion</string>
     <string name="ChoixProduit">Choisir le produit</string>
     <string name="title_activity_file_attente">FileAttenteActivity</string>
+    <string name="Valider">Valider</string>
 
 </resources>

@@ -1,21 +1,29 @@
 package activities;
 
+import java.util.ArrayList;
+
 import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.view.MenuItem;
 import com.classes.mikaprod.Poste;
+import com.classes.mikaprod.Produit;
 import com.classes.mikaprod.Utilisateur;
 import com.example.mikaprod.R;
 
+import controles.CtrlProduit;
 import controles.CtrlUtilisateur;
 
+import DB.DbProduit;
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 public class FileAttenteActivity extends SherlockActivity {
 	
 	private Poste poste;
 	private Utilisateur utilisateur;
+	private Spinner spinnerProduit;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +35,8 @@ public class FileAttenteActivity extends SherlockActivity {
 				"utilisateur");
 		
 		this.setTitle(poste.getNom());
+		
+		PopulationSpinnerProduit();
 	}
 
 	@Override
@@ -61,6 +71,24 @@ public class FileAttenteActivity extends SherlockActivity {
 			return true;
 		}
 		return false;
+	}
+	
+	// Ajout des items dans le spinner produit
+	public void PopulationSpinnerProduit() {
+
+		// Recup element dans le layout
+		spinnerProduit = (Spinner) findViewById(R.id.spinnerChoixProduit);
+
+		// Recup de tous les produits
+		ArrayList<Produit> ListeProduit = DbProduit.GetProduitsATravailler(poste, FileAttenteActivity.this);
+
+		// Population du spinner
+		ArrayAdapter<Produit> dataAdapter = new ArrayAdapter<Produit>(
+				this, android.R.layout.simple_spinner_item, ListeProduit);
+
+		dataAdapter
+				.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		spinnerProduit.setAdapter(dataAdapter);
 	}
 	
 	
