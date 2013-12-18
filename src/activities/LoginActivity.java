@@ -45,7 +45,7 @@ public class LoginActivity extends Activity {
 				CtrlUtilisateur ctrlUtilisateur = new CtrlUtilisateur();
 
 				if (ctrlUtilisateur.ConnexionAuPoste(utilisateurSelect,
-						posteSelect)) {
+						posteSelect, LoginActivity.this)) {
 					Toast.makeText(
 							LoginActivity.this,
 							"Connexion de " + utilisateurSelect + " sur "
