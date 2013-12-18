@@ -12,14 +12,14 @@ public class DatabaseSQLite extends SQLiteOpenHelper {
 	private static final CursorFactory DB_CURSOR_FACTORY = null; // <-??? Dafuq?
 	// SCRIPTS DE CREATION DES TABLES
 	private static final String TABLE_UTILISATEUR = "CREATE  TABLE `Utilisateur` ("
-			+ "`id_utilisateur` INT NOT NULL AUTOINCREMENT ,"
-			+ "`id_poste` INT NULL ,"
-			+ "`nom` VARCHAR(255) NULL ,"
-			+ "PRIMARY KEY (`id_utilisateur`) ,"
-			+ "INDEX `fk_Utilisateur_Poste` (`id_poste` ASC) ,"
+			+ DbUtilisateur.COL_ID+" INT NOT NULL AUTOINCREMENT ,"
+			+ DbUtilisateur.COL_POSTE +" INT NULL ,"
+			+ DbUtilisateur.COL_NOM + " VARCHAR(255) NULL ,"
+			+ "PRIMARY KEY ("+DbUtilisateur.COL_ID+") ,"
+			+ "INDEX `fk_Utilisateur_Poste` ("+DbUtilisateur.COL_POSTE+" ASC) ,"
 			+ "CONSTRAINT `fk_Utilisateur_Poste`"
-			+ "  FOREIGN KEY (`id_poste` )"
-			+ "  REFERENCES `Poste` (`id_poste` )"
+			+ "  FOREIGN KEY ("+DbUtilisateur.COL_ID+")"
+			+ "  REFERENCES "+DbPoste.TABLE_NAME+" ("+DbUtilisateur.COL_POSTE+" )"
 			+ "  ON DELETE NO ACTION"
 			+ "  ON UPDATE NO ACTION);";
 
@@ -76,12 +76,12 @@ public class DatabaseSQLite extends SQLiteOpenHelper {
 			+ "ON UPDATE NO ACTION);";
 	
 	//order is important, mah nigga
-	private static final String CREATE_BDD = 
+	/*private static final String CREATE_BDD = 
 			TABLE_COMMANDE 
 			+ TABLE_POSTE
 			+ TABLE_UTILISATEUR 
 			+ TABLE_PRODUIT 
-			+ TABLE_HISTORIQUE;
+			+ TABLE_HISTORIQUE;*/
 	
 	// ====================================
 
@@ -93,11 +93,11 @@ public class DatabaseSQLite extends SQLiteOpenHelper {
 	@Override
 	public void onCreate(SQLiteDatabase db) {
 		//db.execSQL(CREATE_BDD);
-		db.execSQL(TABLE_COMMANDE);
-		db.execSQL(TABLE_POSTE);
+//		db.execSQL(TABLE_COMMANDE);
+//		db.execSQL(TABLE_POSTE);
 		db.execSQL(TABLE_UTILISATEUR);
-		db.execSQL(TABLE_PRODUIT);
-		db.execSQL(TABLE_HISTORIQUE);
+//		db.execSQL(TABLE_PRODUIT);
+//		db.execSQL(TABLE_HISTORIQUE);
 		
 		
 		//Mock data
