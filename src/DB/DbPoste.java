@@ -8,6 +8,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.classes.mikaprod.Poste;
+import com.classes.mikaprod.Produit;
 
 public class DbPoste {
 
@@ -40,7 +41,7 @@ public class DbPoste {
 			poste.setFlagFluxFinal(
 					Integer.parseInt(cursor.getString(cursor.getColumnIndex(COL_POSTE_FINAL))) == 1 ? true : false);
 		}
-		
+		db.close();
 		return poste;
 	}
 	
@@ -69,7 +70,55 @@ public class DbPoste {
 				postes.add(p);
 			}while(cursor.moveToNext());
 		}
-		
-	return postes;
+		db.close();
+		return postes;
 	}
+	
+	/**
+	 * Cherche l'id du dernier poste de la chaîne de production.
+	 * @param context
+	 * @return
+	 */
+	public static int GetIdDernierPoste(Context context)
+	{
+		SQLiteDatabase db = new DatabaseSQLite(context).getReadableDatabase();
+		
+		String requete = "SELECT "+ COL_ID 
+				+" FROM " + TABLE_NAME 
+				+" ORDER BY " + COL_ID + " DESC";
+		
+		Cursor cursor = db.rawQuery(requete, null);
+		db.close();
+		if(cursor.moveToFirst())
+		{
+			return Integer.parseInt(
+					cursor.getString(cursor.getColumnIndex(COL_ID)));
+		}
+		return -1;
+	}
+	
+	/**
+	 * Cherche l'id du premier poste de la chaîne de production
+	 * @param context
+	 * @return
+	 */
+	public static int GetIdPremierPoste(Context context)
+	{
+		SQLiteDatabase db = new DatabaseSQLite(context).getReadableDatabase();
+		
+		String requete = "SELECT "+ COL_ID 
+				+" FROM " + TABLE_NAME 
+				+" ORDER BY " + COL_ID + " ASC";
+		
+		Cursor cursor = db.rawQuery(requete, null);
+		db.close();
+		if(cursor.moveToFirst())
+		{
+			return Integer.parseInt(
+					cursor.getString(cursor.getColumnIndex(COL_ID)));
+		}
+		return -1;
+	}
+	
+	
 }

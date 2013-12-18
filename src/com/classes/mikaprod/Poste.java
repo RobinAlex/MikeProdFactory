@@ -9,9 +9,6 @@ public class  Poste {
 	private int ordreFlux;
 	private Boolean flagFluxFinal;
 	
-	private static int IdPremierPoste;
-	private static int IdDernierPoste;
-	
 
 	// GETTERS
 	public int getId() {
@@ -29,15 +26,7 @@ public class  Poste {
 	public Boolean getFlagFluxFinal() {
 		return flagFluxFinal;
 	}
-	
-	public static int getIdPremierPoste() {
-		return IdPremierPoste;
-	}	
-
-	public static int getIdDernierPoste() {
-		return IdDernierPoste;
-	}
-	
+		
 	// SETTERS
 	public void setId(int id) {
 		this.id = id;
@@ -53,13 +42,6 @@ public class  Poste {
 	
 	public void setFlagFluxFinal(Boolean flagFluxFinal) {
 		this.flagFluxFinal = flagFluxFinal;
-	}
-	
-	public static void setIdPremierPoste(int idPremierPoste) {
-		IdPremierPoste = idPremierPoste;
-	}
-	public static void setIdDernierPoste(int idDernierPoste) {
-		IdDernierPoste = idDernierPoste;
 	}
 	
 	
