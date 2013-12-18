@@ -41,4 +41,9 @@ public class Utilisateur {
 	public Utilisateur() {
 	}
 
+	@Override
+	public String toString() {
+		return this.getNom();
+	}
+
 }

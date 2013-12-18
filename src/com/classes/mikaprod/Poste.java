@@ -71,5 +71,10 @@ public class Poste {
 	public Poste() {
 
 	}
+	
+	@Override
+	public String toString() {
+		return this.getNom();
+	}
 
 }

@@ -15,31 +15,35 @@ public class CtrlUtilisateur {
 	/**
 	 * Connecte un utilisateur à un poste
 	 * @param poste
-	 * @return boolean qui indique si OK ou non
+	 * @return boolean qui indique si la connexion est OK ou non
 	 */
-	public Boolean ConnexionAuPoste(Poste poste) {
+	public Boolean ConnexionAuPoste(Utilisateur utilisateur, Poste poste, Context context) {
 		
 		Boolean status = false;
 		
-		// TODO : changer Poste
+		if (DbUtilisateur.ConnexionAuPoste(utilisateur, poste, context)) {
+			utilisateur.setPoste(poste);
+			status = true;
+		}
 				
-		return status;
-		
+		return status;		
 		
 	}
 	
 	/**
 	 * Deconnecte un utilisateur de son poste actuel
-	 * @return boolean qui indique si OK ou non
+	 * @return boolean qui indique si la deconnexion est OK ou non
 	 */
-	public Boolean DeconnexionDuPoste() {
+	public Boolean DeconnexionDuPoste(Utilisateur utilisateur, Context context) {
 		
-		Boolean status = false;
+		Boolean status = false;	
 		
-		// TODO : Enlever Poste
+		if (DbUtilisateur.DeconnexionDuPoste(utilisateur, context)) {
+			utilisateur.setPoste(null);
+			status = true;
+		}
 				
-		return status;
-		
+		return status;		
 		
 	}
 	
