@@ -12,28 +12,46 @@ import DB.DbUtilisateur;
 
 public class CtrlUtilisateur {
 	
-	public Boolean ConnexionAuPoste(Poste poste) {
+	/**
+	 * Connecte un utilisateur à un poste
+	 * @param poste
+	 * @return boolean qui indique si la connexion est OK ou non
+	 */
+	public Boolean ConnexionAuPoste(Utilisateur utilisateur, Poste poste, Context context) {
 		
 		Boolean status = false;
 		
-		// TODO : changer Poste
+		if (DbUtilisateur.ConnexionAuPoste(utilisateur, poste, context)) {
+			utilisateur.setPoste(poste);
+			status = true;
+		}
 				
-		return status;
-		
+		return status;		
 		
 	}
 	
-	public Boolean DeconnexionDuPoste() {
+	/**
+	 * Deconnecte un utilisateur de son poste actuel
+	 * @return boolean qui indique si la deconnexion est OK ou non
+	 */
+	public Boolean DeconnexionDuPoste(Utilisateur utilisateur, Context context) {
 		
-		Boolean status = false;
+		Boolean status = false;	
 		
-		// TODO : Enlever Poste
+		if (DbUtilisateur.DeconnexionDuPoste(utilisateur, context)) {
+			utilisateur.setPoste(null);
+			status = true;
+		}
 				
-		return status;
-		
+		return status;		
 		
 	}
 	
+	/**
+	 * Recupere tout les utilisateurs
+	 * @param context
+	 * @return ArrayList de type Utilisateur
+	 */
 	public static ArrayList<Utilisateur> GetAll(Context context) {
 		
 		ArrayList<Utilisateur> ListeUtilisateur = new ArrayList<Utilisateur>();
