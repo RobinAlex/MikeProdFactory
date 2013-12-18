@@ -12,8 +12,8 @@ public class DatabaseSQLite extends SQLiteOpenHelper {
 	private static final CursorFactory DB_CURSOR_FACTORY = null; // <-??? Dafuq?
 	// SCRIPTS DE CREATION DES TABLES
 	private static final String TABLE_UTILISATEUR = "CREATE  TABLE `Utilisateur` ("
-			+ "`id_utilisateur` INT NOT NULL AUTO_INCREMENT ,"
-			+ "`id_poste` INT NULL COMMENT '		' ,"
+			+ "`id_utilisateur` INT NOT NULL AUTOINCREMENT ,"
+			+ "`id_poste` INT NULL ,"
 			+ "`nom` VARCHAR(255) NULL ,"
 			+ "PRIMARY KEY (`id_utilisateur`) ,"
 			+ "INDEX `fk_Utilisateur_Poste` (`id_poste` ASC) ,"
@@ -24,12 +24,12 @@ public class DatabaseSQLite extends SQLiteOpenHelper {
 			+ "  ON UPDATE NO ACTION);";
 
 	private static final String TABLE_POSTE = "CREATE  TABLE `Poste` ("
-			+ " `id_poste` INT NOT NULL AUTO_INCREMENT ,"
+			+ " `id_poste` INT NOT NULL AUTOINCREMENT ,"
 			+ " `nom` VARCHAR(255) NULL ," + " `ordre_flux` INT NULL ,"
 			+ " `flag_final` INT NULL ," + " PRIMARY KEY (`id_poste`) );";
 
 	private static final String TABLE_HISTORIQUE = "CREATE  TABLE `Historique` ("
-			+ "`id_historique` INT NOT NULL AUTO_INCREMENT ,"
+			+ "`id_historique` INT NOT NULL AUTOINCREMENT ,"
 			+ "`id_poste` INT NULL ,"
 			+ "`id_utilisateur` INT NULL ,"
 			+ "`id_produit` INT NULL ,"
@@ -55,13 +55,13 @@ public class DatabaseSQLite extends SQLiteOpenHelper {
 			+ "  ON DELETE NO ACTION" + "  ON UPDATE NO ACTION);";
 
 	private static final String TABLE_COMMANDE = "CREATE  TABLE `Commande` ("
-			+ "`id_commande` INT NOT NULL AUTO_INCREMENT ,"
+			+ "`id_commande` INT NOT NULL AUTOINCREMENT ,"
 			+ "`client` VARCHAR(255) NULL ," + "`quantite` INT NULL ,"
 			+ "`type` VARCHAR(255) NULL ," + "`matiere` VARCHAR(255) NULL ,"
 			+ "PRIMARY KEY (`id_commande`) );";
 
 	private static final String TABLE_PRODUIT = "CREATE  TABLE `Produit` ("
-			+ "`id_produit` INT NOT NULL AUTO_INCREMENT ,"
+			+ "`id_produit` INT NOT NULL AUTOINCREMENT ,"
 			+ "`id_commande` INT NULL ," + "`id_poste` INT NULL ,"
 			+ "`flag_attente` INT NULL ," + "`flag_termine` INT NULL ,"
 			+ "PRIMARY KEY (`id_produit`) ,"
@@ -92,7 +92,13 @@ public class DatabaseSQLite extends SQLiteOpenHelper {
 
 	@Override
 	public void onCreate(SQLiteDatabase db) {
-		db.execSQL(CREATE_BDD);
+		//db.execSQL(CREATE_BDD);
+		db.execSQL(TABLE_COMMANDE);
+		db.execSQL(TABLE_POSTE);
+		db.execSQL(TABLE_UTILISATEUR);
+		db.execSQL(TABLE_PRODUIT);
+		db.execSQL(TABLE_HISTORIQUE);
+		
 		
 		//Mock data
 		db.execSQL("INSERT INTO Poste (nom, ordre_flux, flag_final)"
