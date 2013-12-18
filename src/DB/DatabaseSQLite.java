@@ -11,34 +11,29 @@ public class DatabaseSQLite extends SQLiteOpenHelper {
 	private static final String DB_NAME = "MikaProd";
 	private static final CursorFactory DB_CURSOR_FACTORY = null; // <-??? Dafuq?
 	// SCRIPTS DE CREATION DES TABLES
-	private static final String TABLE_UTILISATEUR = "CREATE  TABLE `Utilisateur` ("
-			+ "`id_utilisateur` INT NOT NULL AUTOINCREMENT ,"
-			+ "`id_poste` INT NULL ,"
-			+ "`nom` VARCHAR(255) NULL ,"
-			+ "PRIMARY KEY (`id_utilisateur`) ,"
-			+ "INDEX `fk_Utilisateur_Poste` (`id_poste` ASC) ,"
+	private static final String TABLE_UTILISATEUR = "CREATE  TABLE "+DbUtilisateur.TABLE_NAME+" ("
+			+ DbUtilisateur.COL_ID+" INTEGER PRIMARY KEY AUTOINCREMENT ,"
+			+ DbUtilisateur.COL_POSTE +" INTEGER NULL ,"
+			+ DbUtilisateur.COL_NOM + " VARCHAR(255) NULL ,"
 			+ "CONSTRAINT `fk_Utilisateur_Poste`"
-			+ "  FOREIGN KEY (`id_poste` )"
-			+ "  REFERENCES `Poste` (`id_poste` )"
+			+ "  FOREIGN KEY ("+DbUtilisateur.COL_ID+")"
+			+ "  REFERENCES "+DbPoste.TABLE_NAME+" ("+DbUtilisateur.COL_POSTE+" )"
 			+ "  ON DELETE NO ACTION"
 			+ "  ON UPDATE NO ACTION);";
 
-	private static final String TABLE_POSTE = "CREATE  TABLE `Poste` ("
-			+ " `id_poste` INT NOT NULL AUTOINCREMENT ,"
-			+ " `nom` VARCHAR(255) NULL ," + " `ordre_flux` INT NULL ,"
-			+ " `flag_final` INT NULL ," + " PRIMARY KEY (`id_poste`) );";
+	private static final String TABLE_POSTE = "CREATE  TABLE "+DbPoste.TABLE_NAME+" ("
+			+DbPoste.COL_ID+" INTEGER PRIMARY KEY AUTOINCREMENT ,"
+			+DbPoste.COL_NOM+" VARCHAR(255) NULL ," 
+			+DbPoste.COL_ORDRE_FLUX + " INTEGER NULL ,"
+			+DbPoste.COL_POSTE_FINAL+ " INTEGER NULL );";
 
-	private static final String TABLE_HISTORIQUE = "CREATE  TABLE `Historique` ("
-			+ "`id_historique` INT NOT NULL AUTOINCREMENT ,"
-			+ "`id_poste` INT NULL ,"
-			+ "`id_utilisateur` INT NULL ,"
-			+ "`id_produit` INT NULL ,"
-			+ "`date_Debut` VARCHAR(255) NULL ,"
-			+ "`date_Fin` VARCHAR(255) NULL ,"
-			+ "PRIMARY KEY (`id_historique`) ,"
-			+ "INDEX `fk_Historique_Poste` (`id_poste` ASC) ,"
-			+ "INDEX `fk_Historique_Utilisateur` (`id_utilisateur` ASC) ,"
-			+ "INDEX `fk_Historique_Produit` (`id_produit` ASC) ,"
+	private static final String TABLE_HISTORIQUE = "CREATE  TABLE "+DbHistorique.TABLE_NAME+" ("
+			+ DbHistorique.COL_ID +" INTEGER PRIMARY KEY AUTOINCREMENT ,"
+			+ DbHistorique.COL_ID_POSTE + " INTEGER NULL ,"
+			+ DbHistorique.COL_ID_UTILISATEUR+ " INTEGER NULL ,"
+			+ DbHistorique.COL_ID_PRODUIT+" INTEGER NULL ,"
+			+ DbHistorique.COL_DATE_DEBUT+" VARCHAR(255) NULL ,"
+			+ DbHistorique.COL_DATE_FIN+" VARCHAR(255) NULL ,"
 			+ "CONSTRAINT `fk_Historique_Poste`"
 			+ "  FOREIGN KEY (`id_poste` )"
 			+ "  REFERENCES `Poste` (`id_poste` )"
@@ -55,34 +50,29 @@ public class DatabaseSQLite extends SQLiteOpenHelper {
 			+ "  ON DELETE NO ACTION" + "  ON UPDATE NO ACTION);";
 
 	private static final String TABLE_COMMANDE = "CREATE  TABLE `Commande` ("
-			+ "`id_commande` INT NOT NULL AUTOINCREMENT ,"
-			+ "`client` VARCHAR(255) NULL ," + "`quantite` INT NULL ,"
-			+ "`type` VARCHAR(255) NULL ," + "`matiere` VARCHAR(255) NULL ,"
-			+ "PRIMARY KEY (`id_commande`) );";
+			+ "`id_commande` INTEGER PRIMARY KEY AUTOINCREMENT ,"
+			+ "`client` VARCHAR(255) NULL ," 
+			+ "`quantite` INTEGER NULL ,"
+			+ "`type` VARCHAR(255) NULL ," 
+			+ "`matiere` VARCHAR(255) NULL);";
 
 	private static final String TABLE_PRODUIT = "CREATE  TABLE `Produit` ("
-			+ "`id_produit` INT NOT NULL AUTOINCREMENT ,"
-			+ "`id_commande` INT NULL ," + "`id_poste` INT NULL ,"
-			+ "`flag_attente` INT NULL ," + "`flag_termine` INT NULL ,"
-			+ "PRIMARY KEY (`id_produit`) ,"
-			+ "INDEX `fk_Produit_Commande` (`id_commande` ASC) ,"
-			+ "INDEX `fk_Produit_Poste` (`id_poste` ASC) ,"
+			+ "`id_produit` INTEGER PRIMARY KEY AUTOINCREMENT ,"
+			+ "`id_commande` INTEGER NULL ," 
+			+ "`id_poste` INTEGER NULL ,"
+			+ "`flag_attente` INTEGER NULL ," 
+			+ "`flag_termine` INTEGER NULL ,"
 			+ "CONSTRAINT `fk_Produit_Commande`"
 			+ "FOREIGN KEY (`id_commande` )"
-			+ "REFERENCES `Commande` (`id_commande` )" + "ON DELETE NO ACTION"
-			+ "ON UPDATE NO ACTION," + "CONSTRAINT `fk_Produit_Poste`"
+			+ "REFERENCES `Commande` (`id_commande` )" 
+			+ "ON DELETE NO ACTION "
+			+ "ON UPDATE NO ACTION," 
+			+ "CONSTRAINT `fk_Produit_Poste`"
 			+ " FOREIGN KEY (`id_poste` )"
-			+ " REFERENCES `Poste` (`id_poste` )" + " ON DELETE NO ACTION"
-			+ "ON UPDATE NO ACTION);";
-	
-	//order is important, mah nigga
-	private static final String CREATE_BDD = 
-			TABLE_COMMANDE 
-			+ TABLE_POSTE
-			+ TABLE_UTILISATEUR 
-			+ TABLE_PRODUIT 
-			+ TABLE_HISTORIQUE;
-	
+			+ " REFERENCES `Poste` (`id_poste` )" 
+			+ " ON DELETE NO ACTION"
+			+ " ON UPDATE NO ACTION);";
+
 	// ====================================
 
 	public DatabaseSQLite(Context context) {
@@ -92,7 +82,6 @@ public class DatabaseSQLite extends SQLiteOpenHelper {
 
 	@Override
 	public void onCreate(SQLiteDatabase db) {
-		//db.execSQL(CREATE_BDD);
 		db.execSQL(TABLE_COMMANDE);
 		db.execSQL(TABLE_POSTE);
 		db.execSQL(TABLE_UTILISATEUR);

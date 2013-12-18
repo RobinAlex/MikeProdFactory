@@ -11,10 +11,10 @@ import com.classes.mikaprod.Utilisateur;
 
 public class DbUtilisateur {
 
-	private static final String TABLE_NAME = "Utilisateur";
-	private static final String COL_ID = "id_utilisateur";
-	private static final String COL_NOM = "nom";
-	private static final String COL_POSTE = "id_poste";
+	public static final String TABLE_NAME = "Utilisateur";
+	public static final String COL_ID = "id_utilisateur";
+	public static final String COL_NOM = "nom";
+	public static final String COL_POSTE = "id_poste";
 
 	
 	/**

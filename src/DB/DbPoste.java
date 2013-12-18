@@ -11,11 +11,11 @@ import com.classes.mikaprod.Poste;
 
 public class DbPoste {
 
-	private static final String TABLE_NAME = "Poste";
-	private static final String COL_ID = "id_poste";
-	private static final String COL_NOM = "nom";
-	private static final String COL_ORDRE_FLUX = "ordre_flux";
-	private static final String COL_POSTE_FINAL = "flag_final";
+	public static final String TABLE_NAME = "Poste";
+	public static final String COL_ID = "id_poste";
+	public static final String COL_NOM = "nom";
+	public static final String COL_ORDRE_FLUX = "ordre_flux";
+	public static final String COL_POSTE_FINAL = "flag_final";
 
 	
 	/**
