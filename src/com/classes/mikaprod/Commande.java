@@ -61,20 +61,7 @@ public class Commande {
 	
 	
 	// METHODES
-	public ArrayList<Produit> CreerProduits() {
-		
-		ArrayList<Produit> listeProduit = new ArrayList<Produit>(); 
-		
-		for (int i = 0; i < this.getQuantite(); i++) {
-			listeProduit.add(new Produit(-1, this, null, true, false));
-			
-			/*
-			 INSERT INTO Produit (idCommande, enAttente, termine) VALUES (this.getId, true, false);
-			 */
-		}
-		
-		return listeProduit;
-	}
+	
 	
 	
 	
