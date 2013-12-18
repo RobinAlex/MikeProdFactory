@@ -75,7 +75,7 @@ public class DatabaseSQLite extends SQLiteOpenHelper {
 			+ " REFERENCES `Poste` (`id_poste` )" + " ON DELETE NO ACTION"
 			+ "ON UPDATE NO ACTION);";
 	
-	//order is important, mah niggastring
+	//order is important, mah nigga
 	private static final String CREATE_BDD = 
 			TABLE_COMMANDE 
 			+ TABLE_POSTE
@@ -93,6 +93,20 @@ public class DatabaseSQLite extends SQLiteOpenHelper {
 	@Override
 	public void onCreate(SQLiteDatabase db) {
 		db.execSQL(CREATE_BDD);
+		
+		//Mock data
+		db.execSQL("INSERT INTO Poste (nom, ordre_flux, flag_final)"
+						+"VALUES ('Découpage', 1, 0);");
+		db.execSQL("INSERT INTO Poste (nom, ordre_flux, flag_final)"
+						+"VALUES ('Fabrication', 2, 0);");
+		db.execSQL("INSERT INTO Poste (nom, ordre_flux, flag_final)"
+						+"VALUES ('Peinture', 3, 0);");
+		db.execSQL("INSERT INTO Poste (nom, ordre_flux, flag_final)"
+						+"VALUES ('Assemblage', 4, 1);");
+		
+		db.execSQL("INSERT INTO Utilisateur (nom) VALUES ('Didier');");
+		db.execSQL("INSERT INTO Utilisateur (nom) VALUES ('Michel');");
+		db.execSQL("INSERT INTO Utilisateur (nom) VALUES ('Robert');");
 	}
 
 	@Override

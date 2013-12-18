@@ -18,7 +18,7 @@ public class DbUtilisateur {
 
 	
 	/**
-	 * Retourne tous le sutilisateurs de la base triés par le nom 
+	 * Retourne tous les utilisateurs de la base triés par le nom 
 	 * de l'utilisateur.
 	 * @param context
 	 * @return
