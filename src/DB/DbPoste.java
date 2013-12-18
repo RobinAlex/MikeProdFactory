@@ -120,5 +120,36 @@ public class DbPoste {
 		return -1;
 	}
 	
-	
+
+	/**
+	 * Retourne le poste suivant dans le flux
+	 * @param poste
+	 * @param context
+	 * @return
+	 */
+	public static Poste GetPosteSuivant(Poste poste, Context context)
+	{
+		Poste posteSuivant = null;
+		SQLiteDatabase db = new DatabaseSQLite(context).getReadableDatabase();
+		
+		String requete = "SELECT * FROM Poste "
+				+ "WHERE " + COL_ORDRE_FLUX +" > " + poste.getOrdreFlux() + " "
+				+ "ORDER BY "+COL_ORDRE_FLUX + " "
+				+ "LIMIT 1;";
+		
+		Cursor cursor = db.rawQuery(requete, null);
+		if(cursor.moveToFirst())
+		{
+			Poste p = new Poste();
+			p.setId(Integer.parseInt(cursor.getString(cursor.getColumnIndex(COL_ID))));
+			p.setNom(cursor.getString(cursor.getColumnIndex(COL_NOM)));
+			p.setOrdreFlux(Integer.parseInt(cursor.getString(cursor.getColumnIndex(COL_ORDRE_FLUX))));
+			p.setFlagFluxFinal(
+				Integer.parseInt(cursor.getString(cursor.getColumnIndex(COL_POSTE_FINAL))) == 1 ? true : false);
+				
+		}
+		db.close();
+		
+		return posteSuivant;
+	}
 }
