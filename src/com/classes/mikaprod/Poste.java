@@ -11,9 +11,6 @@ public class Poste implements Serializable {
 	private int ordreFlux;
 	private Boolean flagFluxFinal;
 
-	private static int IdPremierPoste;
-	private static int IdDernierPoste;
-
 	// GETTERS
 	public int getId() {
 		return id;
@@ -29,14 +26,6 @@ public class Poste implements Serializable {
 
 	public Boolean getFlagFluxFinal() {
 		return flagFluxFinal;
-	}
-
-	public static int getIdPremierPoste() {
-		return IdPremierPoste;
-	}
-
-	public static int getIdDernierPoste() {
-		return IdDernierPoste;
 	}
 
 	// SETTERS
@@ -56,13 +45,6 @@ public class Poste implements Serializable {
 		this.flagFluxFinal = flagFluxFinal;
 	}
 
-	public static void setIdPremierPoste(int idPremierPoste) {
-		IdPremierPoste = idPremierPoste;
-	}
-
-	public static void setIdDernierPoste(int idDernierPoste) {
-		IdDernierPoste = idDernierPoste;
-	}
 
 	// CONSTUCTORS
 	public Poste(int id, String nom, int ordreFlux, Boolean flagFluxFinal) {

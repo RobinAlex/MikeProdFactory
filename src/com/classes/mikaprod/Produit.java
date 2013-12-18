@@ -1,5 +1,8 @@
 package com.classes.mikaprod;
 
+import android.content.Context;
+import DB.DbPoste;
+
 public class Produit {
 	
 	private int id;
@@ -54,12 +57,5 @@ public class Produit {
 	
 	public Produit() {
 	}
-	
-	
-	// METHODES
-	
-	
-	
-	
-	
+
 }

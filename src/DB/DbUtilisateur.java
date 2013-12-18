@@ -38,7 +38,7 @@ public class DbUtilisateur {
                 u.setId(Integer.parseInt(cursor.getString(cursor.getColumnIndex(COL_ID))));
                 String tempIdPoste = cursor.getString(cursor.getColumnIndex(COL_POSTE));
                 Poste p = null;
-                if(tempIdPoste == "NULL")
+                if(tempIdPoste != "NULL")
                 {
                 	p = DbPoste.GetPosteById(Integer.parseInt(tempIdPoste), context);
                 }
@@ -50,6 +50,7 @@ public class DbUtilisateur {
             } while (cursor.moveToNext());
         }
 		
+		db.close();
 		return utilisateurs;
 	}
 	
@@ -70,6 +71,7 @@ public class DbUtilisateur {
         int retour =  db.update(TABLE_NAME, values, COL_ID + " = ?",
                 new String[] { String.valueOf(utilisateur.getId()) });
         
+        db.close();
 		return retour == 1 ? true : false;
 	}
 	
@@ -89,6 +91,7 @@ public class DbUtilisateur {
         int retour =  db.update(TABLE_NAME, values, COL_ID + " = ?",
                 new String[] { String.valueOf(utilisateur.getId()) });
         
+        db.close();
 		return retour == 1 ? true : false;
 	}
 
