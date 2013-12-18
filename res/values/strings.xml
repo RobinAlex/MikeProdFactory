@@ -14,5 +14,7 @@
     <string name="title_activity_menu">MenuActivity</string>
     <string name="hello_world">Hello world!</string>
     <string name="deconnexion">Déconnexion</string>
+    <string name="ChoixProduit">Choisir le produit</string>
+    <string name="title_activity_file_attente">FileAttenteActivity</string>
 
 </resources>
