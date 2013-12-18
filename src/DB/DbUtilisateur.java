@@ -34,10 +34,16 @@ public class DbUtilisateur {
 		{
             do {
                 Utilisateur u = new Utilisateur();
-                u.setId(Integer.parseInt(cursor.getString(0)));
-                Poste p = DbPoste.GetPosteById(Integer.parseInt(cursor.getString(1)), context);
+                u.setId(Integer.parseInt(cursor.getString(cursor.getColumnIndex(COL_ID))));
+                String tempIdPoste = cursor.getString(cursor.getColumnIndex(COL_POSTE));
+                Poste p = null;
+                if(tempIdPoste == "NULL")
+                {
+                	p = DbPoste.GetPosteById(Integer.parseInt(tempIdPoste), context);
+                }
+                
                 u.setPoste(p);
-                u.setNom(cursor.getString(2));
+                u.setNom(cursor.getString(cursor.getColumnIndex(COL_NOM)));
 
                 utilisateurs.add(u);
             } while (cursor.moveToNext());

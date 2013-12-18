@@ -34,11 +34,11 @@ public class DbPoste {
 				null, null);
 		if(cursor.moveToFirst())
 		{
-			poste.setId(Integer.parseInt(cursor.getString(0)));
-			poste.setNom(cursor.getString(1));
-			poste.setOrdreFlux(Integer.parseInt(cursor.getString(2)));
+			poste.setId(Integer.parseInt(cursor.getString(cursor.getColumnIndex(COL_ID))));
+			poste.setNom(cursor.getString(cursor.getColumnIndex(COL_NOM)));
+			poste.setOrdreFlux(Integer.parseInt(cursor.getString(cursor.getColumnIndex(COL_ORDRE_FLUX))));
 			poste.setFlagFluxFinal(
-					Integer.parseInt(cursor.getString(3)) == 1 ? true : false);
+					Integer.parseInt(cursor.getString(cursor.getColumnIndex(COL_POSTE_FINAL))) == 1 ? true : false);
 		}
 		
 		return poste;
@@ -60,11 +60,11 @@ public class DbPoste {
 		{
 			do{
 				Poste p = new Poste();
-				p.setId(Integer.parseInt(cursor.getString(0)));
-				p.setNom(cursor.getString(1));
-				p.setOrdreFlux(Integer.parseInt(cursor.getString(2)));
+				p.setId(Integer.parseInt(cursor.getString(cursor.getColumnIndex(COL_ID))));
+				p.setNom(cursor.getString(cursor.getColumnIndex(COL_NOM)));
+				p.setOrdreFlux(Integer.parseInt(cursor.getString(cursor.getColumnIndex(COL_ORDRE_FLUX))));
 				p.setFlagFluxFinal(
-					Integer.parseInt(cursor.getString(3)) == 1 ? true : false);
+					Integer.parseInt(cursor.getString(cursor.getColumnIndex(COL_POSTE_FINAL))) == 1 ? true : false);
 				
 				postes.add(p);
 			}while(cursor.moveToNext());
