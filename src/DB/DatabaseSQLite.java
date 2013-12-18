@@ -92,7 +92,13 @@ public class DatabaseSQLite extends SQLiteOpenHelper {
 
 	@Override
 	public void onCreate(SQLiteDatabase db) {
-		db.execSQL(CREATE_BDD);
+		//db.execSQL(CREATE_BDD);
+		db.execSQL(TABLE_COMMANDE);
+		db.execSQL(TABLE_POSTE);
+		db.execSQL(TABLE_UTILISATEUR);
+		db.execSQL(TABLE_PRODUIT);
+		db.execSQL(TABLE_HISTORIQUE);
+		
 		
 		//Mock data
 		db.execSQL("INSERT INTO Poste (nom, ordre_flux, flag_final)"
