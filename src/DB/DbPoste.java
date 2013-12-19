@@ -6,6 +6,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import com.classes.mikaprod.Poste;
+import com.classes.mikaprod.Produit;
 
 public class DbPoste {
 
@@ -179,6 +180,15 @@ public class DbPoste {
 			resultat = true;
 		}
 		db.close();
+		return resultat;
+	}
+	
+	public static Boolean CommencerTraitementProduit(Produit produit, Poste poste, Context context)
+	{
+		Boolean resultat = false;
+		//TODO : code
+		
+		
 		return resultat;
 	}
 }

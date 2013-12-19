@@ -108,21 +108,21 @@ public class DatabaseSQLite extends SQLiteOpenHelper {
 		db.execSQL("INSERT INTO Produit (id_commande, id_poste, flag_attente, flag_termine) "
 				+"VALUES (2, NULL, 0, 0)");
 		db.execSQL("INSERT INTO Produit (id_commande, id_poste, flag_attente, flag_termine) "
-				+"VALUES (2, 4, 0, 0)");
+				+"VALUES (2, 4, 1, 0)");
 		db.execSQL("INSERT INTO Produit (id_commande, id_poste, flag_attente, flag_termine) "
 				+"VALUES (3, 4, 0, 1)");
 		db.execSQL("INSERT INTO Produit (id_commande, id_poste, flag_attente, flag_termine) "
 				+"VALUES (3, 4, 0, 1)");
 		
 		//Postes
-		db.execSQL("INSERT INTO Poste (nom, ordre_flux, flag_final) "
-						+"VALUES ('Découpage', 1, 0);");
-		db.execSQL("INSERT INTO Poste (nom, ordre_flux, flag_final) "
-						+"VALUES ('Fabrication', 2, 0);");
-		db.execSQL("INSERT INTO Poste (nom, ordre_flux, flag_final) "
-						+"VALUES ('Peinture', 3, 0);");
-		db.execSQL("INSERT INTO Poste (nom, ordre_flux, flag_final) "
-						+"VALUES ('Assemblage', 4, 1);");
+		db.execSQL("INSERT INTO Poste (id_poste, nom, ordre_flux, flag_final) "
+						+"VALUES (1, 'Découpage', 1, 0);");
+		db.execSQL("INSERT INTO Poste (id_poste,nom, ordre_flux, flag_final) "
+						+"VALUES (2, 'Fabrication', 2, 0);");
+		db.execSQL("INSERT INTO Poste (id_poste,nom, ordre_flux, flag_final) "
+						+"VALUES (3, 'Peinture', 3, 0);");
+		db.execSQL("INSERT INTO Poste (id_poste,nom, ordre_flux, flag_final) "
+						+"VALUES (4, 'Assemblage', 4, 1);");
 		
 		//Utilisateurs
 		db.execSQL("INSERT INTO Utilisateur (nom) VALUES ('Didier');");

@@ -38,7 +38,7 @@ public class DbUtilisateur {
                 u.setId(Integer.parseInt(cursor.getString(cursor.getColumnIndex(COL_ID))));
                 String tempIdPoste = cursor.getString(cursor.getColumnIndex(COL_POSTE));
                 Poste p = null;
-                if(tempIdPoste != null)
+                if(tempIdPoste != null && !tempIdPoste.equals("NULL"))
                 {
                 	p = DbPoste.GetPosteById(Integer.parseInt(tempIdPoste), context);
                 }
