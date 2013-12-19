@@ -1,6 +1,8 @@
 package com.classes.mikaprod;
 
-public class Commande {
+import java.io.Serializable;
+
+public class Commande implements Serializable{
 	
 	private int id;
 	private String client;

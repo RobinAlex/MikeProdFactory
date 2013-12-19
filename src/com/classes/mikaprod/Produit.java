@@ -58,5 +58,13 @@ public class Produit implements Serializable {
 	
 	public Produit() {
 	}
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return this.getCommande().getType() + " " 
+				+ this.getCommande().getMatiere() + " (" 
+				+ this.getCommande().getClient()+")";
+	}
 
+	
 }
