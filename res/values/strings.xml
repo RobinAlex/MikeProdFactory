@@ -18,5 +18,7 @@
     <string name="title_activity_file_attente">FileAttenteActivity</string>
     <string name="Valider">Valider</string>
     <string name="tracabilite">Traçabilité</string>
+    <string name="FinirProduitBtn">Finir ce produit</string>
+    <string name="ProduitEnCour">Produit en cours</string>
 
 </resources>

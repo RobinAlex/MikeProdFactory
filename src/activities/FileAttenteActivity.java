@@ -9,6 +9,7 @@ import com.classes.mikaprod.Produit;
 import com.classes.mikaprod.Utilisateur;
 import com.example.mikaprod.R;
 
+import controles.CtrlProduit;
 import controles.CtrlUtilisateur;
 
 import DB.DbProduit;
@@ -23,11 +24,14 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
-public class FileAttenteActivity extends SherlockActivity implements OnItemClickListener {
+public class FileAttenteActivity extends SherlockActivity implements
+		OnItemClickListener {
 
 	private Poste poste;
 	private Utilisateur utilisateur;
+	private Produit produit;
 	private ListView listeFile;
+	private ArrayAdapter<Produit> dataAdapter;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +45,7 @@ public class FileAttenteActivity extends SherlockActivity implements OnItemClick
 		this.setTitle(poste.getNom());
 
 		PopulationListeProduit();
+
 		this.listeFile.setOnItemClickListener(this);
 	}
 
@@ -89,42 +94,64 @@ public class FileAttenteActivity extends SherlockActivity implements OnItemClick
 				poste, FileAttenteActivity.this);
 
 		// Population du Listview
-		ArrayAdapter<Produit> dataAdapter = new ArrayAdapter<Produit>(this,
+		dataAdapter = new ArrayAdapter<Produit>(this,
 				android.R.layout.simple_list_item_1, ListeProduit);
 
 		listeFile.setAdapter(dataAdapter);
 	}
 
 	@Override
-	public void onItemClick(AdapterView<?> arg0, View v, int position, long id) {
+	public void onItemClick(final AdapterView<?> adapter, View v, int position,
+			long id) {
+		
+		//produit = dataAdapter.getItem(position);
+		produit = (Produit) this.listeFile.getItemAtPosition(position);
+		
 		AlertDialog.Builder dialogue = new AlertDialog.Builder(
 				FileAttenteActivity.this);
-		
+
 		dialogue.setTitle("Produit");
-		
-		dialogue
-			.setMessage("Engager le produit ?")
-			.setCancelable(false)
-			
-			.setNegativeButton("Annuler", new DialogInterface.OnClickListener() {
+
+		dialogue.setMessage("Engager le produit ?").setCancelable(false)
+
+		.setNegativeButton("Annuler", new DialogInterface.OnClickListener() {
+
+			public void onClick(DialogInterface dialog, int id) {
+				dialog.cancel();
+			}
+
+		})
+
+		.setPositiveButton("Engager", new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int id) {
 				
-				public void onClick(DialogInterface dialog,int id) {
-					dialog.cancel();
-				}
-				
-			  })
-			  
-			  .setPositiveButton("Engager", new DialogInterface.OnClickListener() {
-				public void onClick(DialogInterface dialog,int id) {
+
+				CtrlProduit ctrlProduit = new CtrlProduit();
+
+				if (ctrlProduit.EngagerProduit(produit, poste, utilisateur)) {
+					Intent posteIntent = new Intent(FileAttenteActivity.this,
+							MenuActivity.class);					
 					
-					// TODO : Demarrer le produit
+					posteIntent.putExtra("produitEnCour", produit);
+
+					posteIntent.putExtra("poste", poste);
+					posteIntent.putExtra("utilisateur", utilisateur);
 					
+					startActivity(posteIntent);
+					FileAttenteActivity.this.finish();
+				} else {
+					Toast.makeText(
+							FileAttenteActivity.this,
+							"Impossible, un produit est déja engagé sur ce poste",
+							Toast.LENGTH_SHORT).show();
 				}
-			  });
-		
+
+			}
+		});
+
 		AlertDialog produitDialog = dialogue.create();
-		produitDialog.show();		
-		
+		produitDialog.show();
+
 	}
 
 }

@@ -4,6 +4,7 @@ import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 import com.classes.mikaprod.Poste;
+import com.classes.mikaprod.Produit;
 import com.classes.mikaprod.Utilisateur;
 import com.example.mikaprod.R;
 
@@ -13,38 +14,23 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class MenuActivity extends SherlockActivity {
 
 	private Utilisateur utilisateur;
 	private Poste poste;
+	private Produit produitEnCours;
+	private Button fileBtn;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_menu);
 
-		utilisateur = (Utilisateur) this.getIntent().getSerializableExtra(
-				"utilisateur");
 		
-		poste = (Poste) this.getIntent().getSerializableExtra("poste");
-		
-		this.setTitle(utilisateur.getNom() +"@"+ poste.getNom());
-		
-		Button fileBtn = (Button) findViewById(R.id.fileBtn);
-		
-		fileBtn.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View v) {
-				
-				Intent intentFile = new Intent(MenuActivity.this, FileAttenteActivity.class);
-				intentFile.putExtra("poste", poste);
-				intentFile.putExtra("utilisateur", utilisateur);
-				startActivity(intentFile);
-				
-			}
-			
-		});
+
 	}
 
 	@Override
@@ -52,6 +38,54 @@ public class MenuActivity extends SherlockActivity {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getSupportMenuInflater().inflate(R.menu.menu, menu);
 		return true;
+	}
+	
+	
+	
+
+	@Override
+	protected void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+		
+		utilisateur = (Utilisateur) this.getIntent().getSerializableExtra(
+				"utilisateur");
+
+		poste = (Poste) this.getIntent().getSerializableExtra("poste");
+		
+		produitEnCours = (Produit) this.getIntent().getSerializableExtra(
+				"produitEnCour");
+		
+		
+		
+		fileBtn = (Button) findViewById(R.id.fileBtn);
+		
+		Button finirBtn = (Button) findViewById(R.id.finirProduitBtn);
+		finirBtn.setVisibility(View.GONE);
+		
+		TextView titre = (TextView) findViewById(R.id.ProduitEnCour);
+		titre.setVisibility(View.GONE);
+
+		this.setTitle(utilisateur.getNom() + "@" + poste.getNom());
+
+		fileBtn.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+
+				Intent intentFile = new Intent(MenuActivity.this,
+						FileAttenteActivity.class);
+				intentFile.putExtra("poste", poste);
+				intentFile.putExtra("utilisateur", utilisateur);
+				startActivity(intentFile);
+
+			}
+
+		});				
+		
+		if (produitEnCours != null) {
+			fileBtn.setVisibility(View.GONE);
+			finirBtn.setVisibility(View.VISIBLE);
+			titre.setVisibility(View.VISIBLE);
+		}
 	}
 
 	@Override
