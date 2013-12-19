@@ -9,7 +9,6 @@ import com.classes.mikaprod.Produit;
 import com.classes.mikaprod.Utilisateur;
 import com.example.mikaprod.R;
 
-import controles.CtrlProduit;
 import controles.CtrlUtilisateur;
 
 import DB.DbProduit;
@@ -18,12 +17,14 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Spinner;
 import android.widget.Toast;
 
-public class FileAttenteActivity extends SherlockActivity {
+public class FileAttenteActivity extends SherlockActivity implements OnItemClickListener {
 
 	private Poste poste;
 	private Utilisateur utilisateur;
@@ -41,6 +42,7 @@ public class FileAttenteActivity extends SherlockActivity {
 		this.setTitle(poste.getNom());
 
 		PopulationListeProduit();
+		this.listeFile.setOnItemClickListener(this);
 	}
 
 	@Override
@@ -48,38 +50,6 @@ public class FileAttenteActivity extends SherlockActivity {
 		getSupportMenuInflater().inflate(R.menu.menu, menu);
 		return true;
 	}
-
-	protected void onListItemClick(ListView list, View v, int position, long id) {
-		
-		AlertDialog.Builder dialogue = new AlertDialog.Builder(
-				FileAttenteActivity.this);
-		
-		dialogue.setTitle("Titre dialogue");
-		
-		dialogue
-			.setMessage("Que voulez vous faire avec le produit ?")
-			.setCancelable(false)
-			
-			.setPositiveButton("Engager", new DialogInterface.OnClickListener() {
-				public void onClick(DialogInterface dialog,int id) {
-					
-					// TODO : Demarrer le produit
-					
-				}
-			  })
-			
-			.setNegativeButton("Annuler", new DialogInterface.OnClickListener() {
-				
-				public void onClick(DialogInterface dialog,int id) {
-					dialog.cancel();
-				}
-				
-			  });
-		
-		AlertDialog produitDialog = dialogue.create();
-		produitDialog.show();		
-		
-    }
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
@@ -124,6 +94,38 @@ public class FileAttenteActivity extends SherlockActivity {
 				android.R.layout.simple_list_item_1, ListeProduit);
 
 		listeFile.setAdapter(dataAdapter);
+	}
+
+	@Override
+	public void onItemClick(AdapterView<?> arg0, View v, int position, long id) {
+		AlertDialog.Builder dialogue = new AlertDialog.Builder(
+				FileAttenteActivity.this);
+		
+		dialogue.setTitle("Produit");
+		
+		dialogue
+			.setMessage("Engager le produit ?")
+			.setCancelable(false)
+			
+			.setNegativeButton("Annuler", new DialogInterface.OnClickListener() {
+				
+				public void onClick(DialogInterface dialog,int id) {
+					dialog.cancel();
+				}
+				
+			  })
+			  
+			  .setPositiveButton("Engager", new DialogInterface.OnClickListener() {
+				public void onClick(DialogInterface dialog,int id) {
+					
+					// TODO : Demarrer le produit
+					
+				}
+			  });
+		
+		AlertDialog produitDialog = dialogue.create();
+		produitDialog.show();		
+		
 	}
 
 }

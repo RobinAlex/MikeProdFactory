@@ -108,9 +108,9 @@ public class DatabaseSQLite extends SQLiteOpenHelper {
 		db.execSQL("INSERT INTO Produit (id_commande, id_poste, flag_attente, flag_termine) "
 				+"VALUES (2, NULL, 0, 0)");
 		db.execSQL("INSERT INTO Produit (id_commande, id_poste, flag_attente, flag_termine) "
-				+"VALUES (2, 4, 0, 0)");
+				+"VALUES (2, 4, 1, 0)");
 		db.execSQL("INSERT INTO Produit (id_commande, id_poste, flag_attente, flag_termine) "
-				+"VALUES (3, 4, 0, 1)");
+				+"VALUES (3, 4, 1, 1)");
 		db.execSQL("INSERT INTO Produit (id_commande, id_poste, flag_attente, flag_termine) "
 				+"VALUES (3, 4, 0, 1)");
 		
