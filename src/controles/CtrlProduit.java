@@ -1,6 +1,7 @@
 package controles;
 
 import DB.DbPoste;
+import DB.DbProduit;
 import android.content.Context;
 
 import com.classes.mikaprod.Commande;
@@ -50,9 +51,13 @@ public class CtrlProduit {
 	 * @param utilisateur
 	 * @return Boolean status
 	 */
-	public Boolean EngagerProduit(Produit produit, Poste poste, Utilisateur utilisateur) {
+	public Boolean EngagerProduit(Produit produit, Poste poste, Utilisateur utilisateur, Context context) {
 		
-		Boolean status = true;
+		Boolean status = false;
+		
+		if (DbPoste.CommencerTraitementProduit(produit, poste, utilisateur, context)) {
+			status = true;
+		}
 		
 		return status;
 		
