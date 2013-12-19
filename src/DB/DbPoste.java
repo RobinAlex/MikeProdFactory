@@ -2,6 +2,7 @@ package DB;
 
 import java.util.ArrayList;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -198,11 +199,74 @@ public class DbPoste {
 	 * @param context
 	 * @return
 	 */
-	public static Boolean CommencerTraitementProduit(Produit produit, Poste poste, Utilisateur utilisateur, Context context)
+	public static Boolean CommencerTraitementProduit(Produit produit, 
+			Poste poste, Utilisateur utilisateur, Context context)
 	{
 		Boolean resultat = false;
+		SQLiteDatabase db = new DatabaseSQLite(context).getWritableDatabase();
 		
+		ContentValues values = new ContentValues();
+        values.put(DbProduit.COL_ID_POSTE, poste.getId());
+        
+		int retour = db.update(DbProduit.TABLE_NAME, 
+				values, 
+				DbProduit.COL_ID + " = ?", 
+				new String[] { String.valueOf(produit.getId()) });
 		
+		if(retour == 1)
+		{
+			resultat = true;
+			
+			if(!DbHistorique.TracerDebutDeTraitement(produit, 
+					poste, utilisateur, context))
+			{
+				resultat = false;
+			}
+		}else
+		{
+			resultat = false;
+		}
 		return resultat;
+	}
+	
+	/**
+	 * Désengage le produit en fabrication sur le poste passé en paramètre.
+	 * La traçabilité de l'opération est assurée dans la méthode.
+	 * ! NE PAS ASSURER LA TRACABILITE EN DEHORS DE CETTE METHODE !
+	 * @param produit Doit déjà être réglé sur le poste suivant.
+	 * @param poste
+	 * @param utilisateur
+	 * @param context
+	 * @return
+	 */
+	public static Boolean TerminerTraitementProduit(Produit produit, 
+			Poste poste, Utilisateur utilisateur, Context context)
+	{
+		Boolean resultat = false;
+		SQLiteDatabase db = new DatabaseSQLite(context).getWritableDatabase();
+		
+		ContentValues values = new ContentValues();
+        values.put(DbProduit.COL_ID_POSTE, produit.getPoste().getId());
+        
+		int retour = db.update(DbProduit.TABLE_NAME, 
+				values, 
+				DbProduit.COL_ID + " = ?", 
+				new String[] { String.valueOf(produit.getId()) });
+		
+		if(retour == 1)
+		{
+			resultat = true;
+			
+			if(!DbHistorique.TracerDebutDeTraitement(produit, 
+					poste, utilisateur, context))
+			{
+				resultat = false;
+			}
+		}else
+		{
+			resultat = false;
+		}
+		return resultat;
+		
 	}
 }
