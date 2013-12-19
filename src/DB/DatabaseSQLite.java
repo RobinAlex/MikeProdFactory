@@ -92,11 +92,11 @@ public class DatabaseSQLite extends SQLiteOpenHelper {
 		//Mock data
 		//Commandes
 		db.execSQL("INSERT INTO Commande (id_commande, client, quantite, type, matiere)"
-				+"VALUES (1, 'QualiPortes', 3, 'porte', 'alu');");
+				+"VALUES (1, 'QualiPortes', 3, 'Porte', 'Alu');");
 		db.execSQL("INSERT INTO Commande (id_commande, client, quantite, type, matiere)"
-				+"VALUES (2, 'QualiFenetres', 2, 'fenetre', 'alu');");
+				+"VALUES (2, 'QualiFenetres', 2, 'Fenetre', 'Alu');");
 		db.execSQL("INSERT INTO Commande (id_commande, client, quantite, type, matiere)"
-				+"VALUES (3, 'OuestFenetres', 2, 'fenetre', 'acier');");
+				+"VALUES (3, 'OuestFenetres', 2, 'Fenetre', 'Acier');");
 		
 		//Produits
 		db.execSQL("INSERT INTO Produit (id_commande, id_poste, flag_attente, flag_termine) "
