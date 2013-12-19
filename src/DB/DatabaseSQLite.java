@@ -90,15 +90,27 @@ public class DatabaseSQLite extends SQLiteOpenHelper {
 		
 		
 		//Mock data
-		db.execSQL("INSERT INTO Poste (nom, ordre_flux, flag_final)"
+		//Commandes
+		db.execSQL("INSERT INTO Commande (client, quantite, type, matiere)"
+				+"VALUES ('QualiPortes', 3, 'porte', 'alu');");
+		db.execSQL("INSERT INTO Commande (client, quantite, type, matiere)"
+				+"VALUES ('QualiFenetres', 2, 'fenetre', 'alu');");
+		
+		//Produits
+		db.execSQL("INSERT INTO Produit (id_commande, id_poste, flag_attente, flag_termine) "
+				+"VALUES (1, NULL, 0, 0)");
+		
+		//Postes
+		db.execSQL("INSERT INTO Poste (nom, ordre_flux, flag_final) "
 						+"VALUES ('Découpage', 1, 0);");
-		db.execSQL("INSERT INTO Poste (nom, ordre_flux, flag_final)"
+		db.execSQL("INSERT INTO Poste (nom, ordre_flux, flag_final) "
 						+"VALUES ('Fabrication', 2, 0);");
-		db.execSQL("INSERT INTO Poste (nom, ordre_flux, flag_final)"
+		db.execSQL("INSERT INTO Poste (nom, ordre_flux, flag_final) "
 						+"VALUES ('Peinture', 3, 0);");
-		db.execSQL("INSERT INTO Poste (nom, ordre_flux, flag_final)"
+		db.execSQL("INSERT INTO Poste (nom, ordre_flux, flag_final) "
 						+"VALUES ('Assemblage', 4, 1);");
 		
+		//Utilisateurs
 		db.execSQL("INSERT INTO Utilisateur (nom) VALUES ('Didier');");
 		db.execSQL("INSERT INTO Utilisateur (nom) VALUES ('Michel');");
 		db.execSQL("INSERT INTO Utilisateur (nom) VALUES ('Robert');");
