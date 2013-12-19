@@ -17,5 +17,6 @@
     <string name="ChoixProduit">Choisir le produit</string>
     <string name="title_activity_file_attente">FileAttenteActivity</string>
     <string name="Valider">Valider</string>
+    <string name="tracabilite">Traçabilité</string>
 
 </resources>
