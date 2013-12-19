@@ -78,6 +78,7 @@ public class DbPoste {
 	 */
 	public static int GetIdDernierPoste(Context context)
 	{
+		int idDernierPoste;
 		SQLiteDatabase db = new DatabaseSQLite(context).getReadableDatabase();
 		
 		String requete = "SELECT "+ COL_ID 
@@ -85,13 +86,16 @@ public class DbPoste {
 				+" ORDER BY " + COL_ID + " DESC";
 		
 		Cursor cursor = db.rawQuery(requete, null);
-		db.close();
 		if(cursor.moveToFirst())
 		{
-			return Integer.parseInt(
+			idDernierPoste = Integer.parseInt(
 					cursor.getString(cursor.getColumnIndex(COL_ID)));
+		}else
+		{
+			idDernierPoste = -1;
 		}
-		return -1;
+		db.close();
+		return idDernierPoste;
 	}
 	
 	/**
@@ -101,6 +105,7 @@ public class DbPoste {
 	 */
 	public static int GetIdPremierPoste(Context context)
 	{
+		int idPremierPoste;
 		SQLiteDatabase db = new DatabaseSQLite(context).getReadableDatabase();
 		
 		String requete = "SELECT "+ COL_ID 
@@ -108,13 +113,17 @@ public class DbPoste {
 				+" ORDER BY " + COL_ID + " ASC";
 		
 		Cursor cursor = db.rawQuery(requete, null);
-		db.close();
+		
 		if(cursor.moveToFirst())
 		{
-			return Integer.parseInt(
+			idPremierPoste = Integer.parseInt(
 					cursor.getString(cursor.getColumnIndex(COL_ID)));
+		}else
+		{
+			idPremierPoste = -1;
 		}
-		return -1;
+		
+		return idPremierPoste;
 	}
 	
 
@@ -129,10 +138,10 @@ public class DbPoste {
 		Poste posteSuivant = null;
 		SQLiteDatabase db = new DatabaseSQLite(context).getReadableDatabase();
 		
-		String requete = "SELECT * FROM Poste "
-				+ "WHERE " + COL_ORDRE_FLUX +" > " + poste.getOrdreFlux() + " "
-				+ "ORDER BY "+COL_ORDRE_FLUX + " "
-				+ "LIMIT 1;";
+		String requete = "SELECT * FROM " + TABLE_NAME
+				+ " WHERE " + COL_ORDRE_FLUX +" > " + poste.getOrdreFlux()
+				+ " ORDER BY "+COL_ORDRE_FLUX
+				+ " LIMIT 1;";
 		
 		Cursor cursor = db.rawQuery(requete, null);
 		if(cursor.moveToFirst())
@@ -145,8 +154,31 @@ public class DbPoste {
 				Integer.parseInt(cursor.getString(cursor.getColumnIndex(COL_POSTE_FINAL))) == 1 ? true : false);
 				
 		}
-		db.close();
-		
+		db.close();		
 		return posteSuivant;
+	}
+	
+	
+	/**
+	 * Regarde si un produit est déjà engagé dans ce poste.
+	 * @param poste
+	 * @param context
+	 * @return
+	 */
+	public static Boolean ProduitDejaEngageAuPoste(Poste poste, Context context)
+	{
+		Boolean resultat = false;
+		
+		SQLiteDatabase db = new DatabaseSQLite(context).getReadableDatabase();
+		Cursor cursor = db.query(DbProduit.TABLE_NAME, 
+				new String[] {"COUNT("+DbProduit.COL_ID_POSTE+")"}, 
+				DbProduit.COL_ID_POSTE +" = ?", 
+				new String[] { String.valueOf(poste.getId()) }, 
+				null, null, null);
+		if (cursor.getCount() > 0) {
+			resultat = true;
+		}
+		db.close();
+		return resultat;
 	}
 }
