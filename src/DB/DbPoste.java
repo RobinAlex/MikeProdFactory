@@ -7,6 +7,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import com.classes.mikaprod.Poste;
 import com.classes.mikaprod.Produit;
+import com.classes.mikaprod.Utilisateur;
 
 public class DbPoste {
 
@@ -21,7 +22,7 @@ public class DbPoste {
 	 * Retourne le poste qui correspond à l'ID passé en paramètre.
 	 * @param idPoste
 	 * @param context
-	 * @return
+	 * @return null si aucun object trouvé en base
 	 */
 	public static Poste GetPosteById(int idPoste, Context context) 
 	{
@@ -38,6 +39,9 @@ public class DbPoste {
 			poste.setOrdreFlux(Integer.parseInt(cursor.getString(cursor.getColumnIndex(COL_ORDRE_FLUX))));
 			poste.setFlagFluxFinal(
 					Integer.parseInt(cursor.getString(cursor.getColumnIndex(COL_POSTE_FINAL))) == 1 ? true : false);
+		}else
+		{
+			poste = null;
 		}
 		db.close();
 		return poste;
@@ -183,10 +187,20 @@ public class DbPoste {
 		return resultat;
 	}
 	
-	public static Boolean CommencerTraitementProduit(Produit produit, Poste poste, Context context)
+	
+	/**
+	 * Engage le produit en fabrication sur le poste passé en paramètre.
+	 * La traçabilité de l'opération est assurée dans la méthode.
+	 * ! NE PAS ASSURER LA TRACABILITE EN DEHORS DE CETTE METHODE !
+	 * @param produit
+	 * @param poste
+	 * @param utilisateur
+	 * @param context
+	 * @return
+	 */
+	public static Boolean CommencerTraitementProduit(Produit produit, Poste poste, Utilisateur utilisateur, Context context)
 	{
 		Boolean resultat = false;
-		//TODO : code
 		
 		
 		return resultat;

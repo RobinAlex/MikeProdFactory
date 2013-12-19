@@ -81,7 +81,11 @@ public class DbProduit {
 						cursor.getColumnIndex(COL_FLAG_TERMINE))) == 1 ? true : false;
 				p.setFlagEnAttente(flagEnAttente);
 				p.setFlagProduitTermine(flagTermine);
-				//TODO : set la commande
+				p.setCommande(
+					DbCommande.GetCommandeById(
+						Integer.parseInt(
+						cursor.getString(
+						cursor.getColumnIndex(COL_ID_COMMANDE))), context));
 				produits.add(p);
 			}while(cursor.moveToNext());
 		}
