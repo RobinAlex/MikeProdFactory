@@ -2,10 +2,13 @@ package DB;
 
 import java.util.ArrayList;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import com.classes.mikaprod.Poste;
+import com.classes.mikaprod.Produit;
+import com.classes.mikaprod.Utilisateur;
 
 public class DbPoste {
 
@@ -20,7 +23,7 @@ public class DbPoste {
 	 * Retourne le poste qui correspond à l'ID passé en paramètre.
 	 * @param idPoste
 	 * @param context
-	 * @return
+	 * @return null si aucun object trouvé en base
 	 */
 	public static Poste GetPosteById(int idPoste, Context context) 
 	{
@@ -37,6 +40,9 @@ public class DbPoste {
 			poste.setOrdreFlux(Integer.parseInt(cursor.getString(cursor.getColumnIndex(COL_ORDRE_FLUX))));
 			poste.setFlagFluxFinal(
 					Integer.parseInt(cursor.getString(cursor.getColumnIndex(COL_POSTE_FINAL))) == 1 ? true : false);
+		}else
+		{
+			poste = null;
 		}
 		db.close();
 		return poste;
@@ -180,5 +186,87 @@ public class DbPoste {
 		}
 		db.close();
 		return resultat;
+	}
+	
+	
+	/**
+	 * Engage le produit en fabrication sur le poste passé en paramètre.
+	 * La traçabilité de l'opération est assurée dans la méthode.
+	 * ! NE PAS ASSURER LA TRACABILITE EN DEHORS DE CETTE METHODE !
+	 * @param produit
+	 * @param poste
+	 * @param utilisateur
+	 * @param context
+	 * @return
+	 */
+	public static Boolean CommencerTraitementProduit(Produit produit, 
+			Poste poste, Utilisateur utilisateur, Context context)
+	{
+		Boolean resultat = false;
+		SQLiteDatabase db = new DatabaseSQLite(context).getWritableDatabase();
+		
+		ContentValues values = new ContentValues();
+        values.put(DbProduit.COL_ID_POSTE, poste.getId());
+        
+		int retour = db.update(DbProduit.TABLE_NAME, 
+				values, 
+				DbProduit.COL_ID + " = ?", 
+				new String[] { String.valueOf(produit.getId()) });
+		
+		if(retour == 1)
+		{
+			resultat = true;
+			
+			if(!DbHistorique.TracerDebutDeTraitement(produit, 
+					poste, utilisateur, context))
+			{
+				resultat = false;
+			}
+		}else
+		{
+			resultat = false;
+		}
+		return resultat;
+	}
+	
+	/**
+	 * Désengage le produit en fabrication sur le poste passé en paramètre.
+	 * La traçabilité de l'opération est assurée dans la méthode.
+	 * ! NE PAS ASSURER LA TRACABILITE EN DEHORS DE CETTE METHODE !
+	 * @param produit Doit déjà être réglé sur le poste suivant.
+	 * @param poste
+	 * @param utilisateur
+	 * @param context
+	 * @return
+	 */
+	public static Boolean TerminerTraitementProduit(Produit produit, 
+			Poste poste, Utilisateur utilisateur, Context context)
+	{
+		Boolean resultat = false;
+		SQLiteDatabase db = new DatabaseSQLite(context).getWritableDatabase();
+		
+		ContentValues values = new ContentValues();
+        values.put(DbProduit.COL_ID_POSTE, produit.getPoste().getId());
+        
+		int retour = db.update(DbProduit.TABLE_NAME, 
+				values, 
+				DbProduit.COL_ID + " = ?", 
+				new String[] { String.valueOf(produit.getId()) });
+		
+		if(retour == 1)
+		{
+			resultat = true;
+			
+			if(!DbHistorique.TracerDebutDeTraitement(produit, 
+					poste, utilisateur, context))
+			{
+				resultat = false;
+			}
+		}else
+		{
+			resultat = false;
+		}
+		return resultat;
+		
 	}
 }

@@ -17,6 +17,9 @@ public class DbProduit {
 	public static final String COL_ID_POSTE = "id_poste";
 	public static final String COL_FLAG_ATTENTE = "flag_attente";
 	public static final String COL_FLAG_TERMINE = "flag_termine";
+	
+	public static final String[] COLS = new String[] {COL_ID, COL_ID_COMMANDE, COL_ID_POSTE, 
+		COL_FLAG_ATTENTE, COL_FLAG_TERMINE};
 
 	
 	public static ArrayList<Produit> GetProduitsATravailler(Poste poste, Context context)
@@ -28,20 +31,32 @@ public class DbProduit {
 		if(poste.getId() == DbPoste.GetIdPremierPoste(context))
 		{//si on se trouve au premier poste
 			cursor =db.query(TABLE_NAME,
-					new String[] {COL_ID, COL_ID_COMMANDE, COL_ID_POSTE, 
-					COL_FLAG_ATTENTE, COL_FLAG_TERMINE}, 
-					COL_ID_POSTE + " = NULL AND " + COL_FLAG_ATTENTE + " = 0",
+					COLS, 
+					COL_ID_POSTE + " IS NULL",
 					null,
-					null,null,
+					null,
+					null,
+					COL_ID + " ASC");
+			
+		}else if(poste.getId() == DbPoste.GetIdDernierPoste(context))
+		{//si on se trouve au dernier poste
+			cursor =db.query(TABLE_NAME,
+					COLS, 
+					COL_ID_POSTE + " = ? AND " + COL_FLAG_ATTENTE + " = ? AND " 
+					+ COL_FLAG_TERMINE + " = ?",
+					new String[]{ String.valueOf(poste.getId()), "1", "0"},
+					null,
+					null,
 					COL_ID);
-		}else
+		}
+		else
 		{//si on se trouve aux autres postes
 			cursor =db.query(TABLE_NAME,
-					new String[] {COL_ID, COL_ID_COMMANDE, COL_ID_POSTE, 
-					COL_FLAG_ATTENTE, COL_FLAG_TERMINE}, 
-					COL_ID_POSTE + " = ? AND " + COL_FLAG_ATTENTE + " = 1",
-					new String[]{ String.valueOf(poste.getId())},
-					null,null,
+					COLS, 
+					COL_ID_POSTE + " = ? AND " + COL_FLAG_ATTENTE + " = ?",
+					new String[]{ String.valueOf(poste.getId()), "1"},
+					null,
+					null,
 					COL_ID);
 		}
 		
@@ -52,7 +67,7 @@ public class DbProduit {
 				p.setId(Integer.parseInt(cursor.getString(cursor.getColumnIndex(COL_ID))));
 				String tempIdPoste = cursor.getString(cursor.getColumnIndex(COL_ID_POSTE));
 				Poste posteProduit = null;
-				if(tempIdPoste != "NULL")
+				if(tempIdPoste != null && !tempIdPoste.equals("NULL"))
                 {
                 	posteProduit = DbPoste.GetPosteById(Integer.parseInt(tempIdPoste), context);
                 }
@@ -66,7 +81,11 @@ public class DbProduit {
 						cursor.getColumnIndex(COL_FLAG_TERMINE))) == 1 ? true : false;
 				p.setFlagEnAttente(flagEnAttente);
 				p.setFlagProduitTermine(flagTermine);
-				
+				p.setCommande(
+					DbCommande.GetCommandeById(
+						Integer.parseInt(
+						cursor.getString(
+						cursor.getColumnIndex(COL_ID_COMMANDE))), context));
 				produits.add(p);
 			}while(cursor.moveToNext());
 		}
