@@ -91,14 +91,28 @@ public class DatabaseSQLite extends SQLiteOpenHelper {
 		
 		//Mock data
 		//Commandes
-		db.execSQL("INSERT INTO Commande (client, quantite, type, matiere)"
-				+"VALUES ('QualiPortes', 3, 'porte', 'alu');");
-		db.execSQL("INSERT INTO Commande (client, quantite, type, matiere)"
-				+"VALUES ('QualiFenetres', 2, 'fenetre', 'alu');");
+		db.execSQL("INSERT INTO Commande (id_commande, client, quantite, type, matiere)"
+				+"VALUES (1, 'QualiPortes', 3, 'porte', 'alu');");
+		db.execSQL("INSERT INTO Commande (id_commande, client, quantite, type, matiere)"
+				+"VALUES (2, 'QualiFenetres', 2, 'fenetre', 'alu');");
+		db.execSQL("INSERT INTO Commande (id_commande, client, quantite, type, matiere)"
+				+"VALUES (3, 'OuestFenetres', 2, 'fenetre', 'acier');");
 		
 		//Produits
 		db.execSQL("INSERT INTO Produit (id_commande, id_poste, flag_attente, flag_termine) "
 				+"VALUES (1, NULL, 0, 0)");
+		db.execSQL("INSERT INTO Produit (id_commande, id_poste, flag_attente, flag_termine) "
+				+"VALUES (1, 2, 1, 0)");
+		db.execSQL("INSERT INTO Produit (id_commande, id_poste, flag_attente, flag_termine) "
+				+"VALUES (1, 2, 1, 0)");
+		db.execSQL("INSERT INTO Produit (id_commande, id_poste, flag_attente, flag_termine) "
+				+"VALUES (2, NULL, 0, 0)");
+		db.execSQL("INSERT INTO Produit (id_commande, id_poste, flag_attente, flag_termine) "
+				+"VALUES (2, 4, 0, 0)");
+		db.execSQL("INSERT INTO Produit (id_commande, id_poste, flag_attente, flag_termine) "
+				+"VALUES (3, 4, 0, 1)");
+		db.execSQL("INSERT INTO Produit (id_commande, id_poste, flag_attente, flag_termine) "
+				+"VALUES (3, 4, 0, 1)");
 		
 		//Postes
 		db.execSQL("INSERT INTO Poste (nom, ordre_flux, flag_final) "
