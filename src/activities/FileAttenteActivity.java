@@ -16,11 +16,12 @@ import DB.DbProduit;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
 public class FileAttenteActivity extends SherlockActivity {
-	
+
 	private Poste poste;
 	private Utilisateur utilisateur;
 	private Spinner spinnerProduit;
@@ -29,14 +30,14 @@ public class FileAttenteActivity extends SherlockActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_file_attente);
-		
+
 		poste = (Poste) this.getIntent().getSerializableExtra("poste");
 		utilisateur = (Utilisateur) this.getIntent().getSerializableExtra(
 				"utilisateur");
-		
+
 		this.setTitle(poste.getNom());
-		
-		PopulationSpinnerProduit();
+
+		PopulationListeProduit();
 	}
 
 	@Override
@@ -44,7 +45,7 @@ public class FileAttenteActivity extends SherlockActivity {
 		getSupportMenuInflater().inflate(R.menu.menu, menu);
 		return true;
 	}
-	
+
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
@@ -72,25 +73,22 @@ public class FileAttenteActivity extends SherlockActivity {
 		}
 		return false;
 	}
-	
+
 	// Ajout des items dans le spinner produit
-	public void PopulationSpinnerProduit() {
+	public void PopulationListeProduit() {
 
 		// Recup element dans le layout
-		spinnerProduit = (Spinner) findViewById(R.id.spinnerChoixProduit);
+		ListView listeFile = (ListView) findViewById(R.id.listeFile);
 
 		// Recup de tous les produits
-		ArrayList<Produit> ListeProduit = DbProduit.GetProduitsATravailler(poste, FileAttenteActivity.this);
+		ArrayList<Produit> ListeProduit = DbProduit.GetProduitsATravailler(
+				poste, FileAttenteActivity.this);
 
-		// Population du spinner
-		ArrayAdapter<Produit> dataAdapter = new ArrayAdapter<Produit>(
-				this, android.R.layout.simple_spinner_item, ListeProduit);
+		// Population du Listview
+		ArrayAdapter<Produit> dataAdapter = new ArrayAdapter<Produit>(this,
+				android.R.layout.simple_list_item_1, ListeProduit);
 
-		dataAdapter
-				.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		spinnerProduit.setAdapter(dataAdapter);
+		listeFile.setAdapter(dataAdapter);
 	}
-	
-	
 
 }

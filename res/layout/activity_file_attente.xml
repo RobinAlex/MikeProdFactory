@@ -8,22 +8,12 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".FileAttenteActivity" >
 
-    <Spinner
-        android:id="@+id/spinnerChoixProduit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="65dp" />
-
-    <Button
-        android:id="@+id/choixProduit"
-        android:layout_width="wrap_content"
+    <ListView
+        android:id="@+id/listeFile"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/spinnerChoixProduit"
-        android:layout_marginTop="36dp"
-        android:text="@string/Valider" />
+        android:layout_alignParentTop="true" >
+    </ListView>
 
 </RelativeLayout>
