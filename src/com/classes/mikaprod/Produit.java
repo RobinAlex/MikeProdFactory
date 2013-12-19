@@ -55,16 +55,5 @@ public class Produit {
 	
 	public Produit() {
 	}
-	
-	
-	// METHODES
-	public Poste getPosteById(int id) {
-		/* TODO SQL : Requete get Poste		 
-		 SELECT * FROM Poste where id = id;
-		*/
-		 
-		return poste;
-	}
-	
-	
+
 }

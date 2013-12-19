@@ -6,6 +6,7 @@ import DB.DbPoste;
 import android.content.Context;
 
 import com.classes.mikaprod.Poste;
+import com.classes.mikaprod.Produit;
 
 public class CtrlPoste {
 	
@@ -26,6 +27,16 @@ public class CtrlPoste {
 		ListePoste = DbPoste.GetAll(context);
 		
 		return ListePoste;
+		
+	}
+	
+	public ArrayList<Produit> GetProduitATravailler(Poste poste) {
+		
+		ArrayList<Produit> listeProduit = new ArrayList<Produit>();
+		
+		// TODO : get ListeProduitaTravailler
+		
+		return null;
 		
 	}
 	
