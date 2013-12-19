@@ -1,7 +1,5 @@
 package com.classes.mikaprod;
 
-import android.content.Context;
-import DB.DbPoste;
 
 public class Produit {
 	

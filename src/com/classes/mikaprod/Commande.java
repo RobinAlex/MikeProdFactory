@@ -1,7 +1,5 @@
 package com.classes.mikaprod;
 
-import java.util.ArrayList;
-
 public class Commande {
 	
 	private int id;

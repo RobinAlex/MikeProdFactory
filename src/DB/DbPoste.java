@@ -2,13 +2,10 @@ package DB;
 
 import java.util.ArrayList;
 
-import android.R.integer;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-
 import com.classes.mikaprod.Poste;
-import com.classes.mikaprod.Produit;
 
 public class DbPoste {
 
@@ -122,7 +119,7 @@ public class DbPoste {
 	
 
 	/**
-	 * Retourne le poste suivant dans le flux
+	 * Retourne le poste suivant dans le flux.
 	 * @param poste
 	 * @param context
 	 * @return
