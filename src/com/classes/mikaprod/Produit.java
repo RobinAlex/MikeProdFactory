@@ -1,8 +1,11 @@
 package com.classes.mikaprod;
 
+import java.io.Serializable;
 
-public class Produit {
+
+public class Produit implements Serializable {
 	
+	private static final long serialVersionUID = -3659851371151711807L;
 	private int id;
 	private Commande commande;
 	private Poste poste;

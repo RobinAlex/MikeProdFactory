@@ -15,7 +15,25 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="114dp"
         android:text="@string/ChoixProduit" />
+
+    <Button
+        android:id="@+id/finirProduitBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/fileBtn"
+        android:layout_alignParentBottom="true"
+        android:text="@string/FinirProduitBtn" />
+
+    <TextView
+        android:id="@+id/ProduitEnCour"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/fileBtn"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="22dp"
+        android:text="@string/ProduitEnCour"
+        android:textColor="@color/Gris"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
 
 </RelativeLayout>

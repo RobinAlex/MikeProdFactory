@@ -18,16 +18,20 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Spinner;
 import android.widget.Toast;
 
-public class FileAttenteActivity extends SherlockActivity {
+public class FileAttenteActivity extends SherlockActivity implements
+		OnItemClickListener {
 
 	private Poste poste;
 	private Utilisateur utilisateur;
+	private Produit produit;
 	private ListView listeFile;
+	private ArrayAdapter<Produit> dataAdapter;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +45,8 @@ public class FileAttenteActivity extends SherlockActivity {
 		this.setTitle(poste.getNom());
 
 		PopulationListeProduit();
+
+		this.listeFile.setOnItemClickListener(this);
 	}
 
 	@Override
@@ -48,38 +54,6 @@ public class FileAttenteActivity extends SherlockActivity {
 		getSupportMenuInflater().inflate(R.menu.menu, menu);
 		return true;
 	}
-
-	protected void onListItemClick(ListView list, View v, int position, long id) {
-		
-		AlertDialog.Builder dialogue = new AlertDialog.Builder(
-				FileAttenteActivity.this);
-		
-		dialogue.setTitle("Titre dialogue");
-		
-		dialogue
-			.setMessage("Que voulez vous faire avec le produit ?")
-			.setCancelable(false)
-			
-			.setPositiveButton("Engager", new DialogInterface.OnClickListener() {
-				public void onClick(DialogInterface dialog,int id) {
-					
-					// TODO : Demarrer le produit
-					
-				}
-			  })
-			
-			.setNegativeButton("Annuler", new DialogInterface.OnClickListener() {
-				
-				public void onClick(DialogInterface dialog,int id) {
-					dialog.cancel();
-				}
-				
-			  });
-		
-		AlertDialog produitDialog = dialogue.create();
-		produitDialog.show();		
-		
-    }
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
@@ -120,10 +94,64 @@ public class FileAttenteActivity extends SherlockActivity {
 				poste, FileAttenteActivity.this);
 
 		// Population du Listview
-		ArrayAdapter<Produit> dataAdapter = new ArrayAdapter<Produit>(this,
+		dataAdapter = new ArrayAdapter<Produit>(this,
 				android.R.layout.simple_list_item_1, ListeProduit);
 
 		listeFile.setAdapter(dataAdapter);
+	}
+
+	@Override
+	public void onItemClick(final AdapterView<?> adapter, View v, int position,
+			long id) {
+		
+		//produit = dataAdapter.getItem(position);
+		produit = (Produit) this.listeFile.getItemAtPosition(position);
+		
+		AlertDialog.Builder dialogue = new AlertDialog.Builder(
+				FileAttenteActivity.this);
+
+		dialogue.setTitle("Produit");
+
+		dialogue.setMessage("Engager le produit ?").setCancelable(false)
+
+		.setNegativeButton("Annuler", new DialogInterface.OnClickListener() {
+
+			public void onClick(DialogInterface dialog, int id) {
+				dialog.cancel();
+			}
+
+		})
+
+		.setPositiveButton("Engager", new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int id) {
+				
+
+				CtrlProduit ctrlProduit = new CtrlProduit();
+
+				if (ctrlProduit.EngagerProduit(produit, poste, utilisateur)) {
+					Intent posteIntent = new Intent(FileAttenteActivity.this,
+							MenuActivity.class);					
+					
+					posteIntent.putExtra("produitEnCour", produit);
+
+					posteIntent.putExtra("poste", poste);
+					posteIntent.putExtra("utilisateur", utilisateur);
+					
+					startActivity(posteIntent);
+					FileAttenteActivity.this.finish();
+				} else {
+					Toast.makeText(
+							FileAttenteActivity.this,
+							"Impossible, un produit est déja engagé sur ce poste",
+							Toast.LENGTH_SHORT).show();
+				}
+
+			}
+		});
+
+		AlertDialog produitDialog = dialogue.create();
+		produitDialog.show();
+
 	}
 
 }
