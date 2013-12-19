@@ -62,4 +62,23 @@ public class CtrlProduit {
 		return status;
 		
 	}
+	
+	/**
+	 * Désengage un produit sur un poste
+	 * @param produit
+	 * @param poste
+	 * @param utilisateur
+	 * @return Boolean status
+	 */
+	public Boolean DesengagerProduit(Produit produit, Poste poste, Utilisateur utilisateur, Context context) {
+		
+		Boolean status = false;
+		
+		if (DbPoste.CommencerTraitementProduit(produit, poste, utilisateur, context)) {
+			status = true;
+		}
+		
+		return status;
+		
+	}
 }

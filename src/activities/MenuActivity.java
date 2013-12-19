@@ -54,9 +54,7 @@ public class MenuActivity extends SherlockActivity {
 		poste = (Poste) this.getIntent().getSerializableExtra("poste");
 		
 		produitEnCours = (Produit) this.getIntent().getSerializableExtra(
-				"produitEnCour");
-		
-		
+				"produitEnCour");		
 		
 		fileBtn = (Button) findViewById(R.id.fileBtn);
 		
@@ -65,6 +63,15 @@ public class MenuActivity extends SherlockActivity {
 		
 		TextView titre = (TextView) findViewById(R.id.ProduitEnCour);
 		titre.setVisibility(View.GONE);
+		
+		TextView produitDesc1 = (TextView) findViewById(R.id.ProduitDesc1);
+		produitDesc1.setVisibility(View.GONE);
+		
+		TextView produitDesc2 = (TextView) findViewById(R.id.ProductDesc2);
+		produitDesc2.setVisibility(View.GONE);
+		
+		TextView produitDesc3 = (TextView) findViewById(R.id.ProduitDesc3);
+		produitDesc3.setVisibility(View.GONE);
 
 		this.setTitle(utilisateur.getNom() + "@" + poste.getNom());
 
@@ -85,6 +92,16 @@ public class MenuActivity extends SherlockActivity {
 			fileBtn.setVisibility(View.GONE);
 			finirBtn.setVisibility(View.VISIBLE);
 			titre.setVisibility(View.VISIBLE);
+			
+			produitDesc1.setVisibility(View.VISIBLE);
+			produitDesc2.setVisibility(View.VISIBLE);
+			produitDesc3.setVisibility(View.VISIBLE);
+			
+			produitDesc1.setText(produitEnCours.getCommande().getType());
+			produitDesc2.setText(produitEnCours.getCommande().getMatiere());
+			produitDesc3.setText(produitEnCours.getCommande().getClient());
+			
+			
 		}
 	}
 
