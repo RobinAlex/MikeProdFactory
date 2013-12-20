@@ -54,7 +54,7 @@ public class DbHistorique {
 		
 		long retour = db.insert(TABLE_NAME, null, values);
 
-		if(retour == 1)
+		if(retour != -1)
 		{
 			resultat =  true;
 		}else

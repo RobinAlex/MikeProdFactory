@@ -89,13 +89,7 @@ public class MenuActivity extends SherlockActivity {
 		if ((produitEnCours != null)
 				|| (DbPoste.ProduitDejaEngageAuPoste(poste, MenuActivity.this))) {
 
-			fileBtn.setVisibility(View.GONE);
-			finirBtn.setVisibility(View.VISIBLE);
-			titre.setVisibility(View.VISIBLE);
-
-			produitDesc1.setVisibility(View.VISIBLE);
-			produitDesc2.setVisibility(View.VISIBLE);
-			produitDesc3.setVisibility(View.VISIBLE);
+			
 
 			if (produitEnCours != null) {
 				produitSurPoste = produitEnCours;
@@ -105,6 +99,15 @@ public class MenuActivity extends SherlockActivity {
 			}
 
 			if (produitSurPoste != null) {
+				
+				fileBtn.setVisibility(View.GONE);
+				finirBtn.setVisibility(View.VISIBLE);
+				titre.setVisibility(View.VISIBLE);
+
+				produitDesc1.setVisibility(View.VISIBLE);
+				produitDesc2.setVisibility(View.VISIBLE);
+				produitDesc3.setVisibility(View.VISIBLE);
+				
 				produitDesc1.setText(produitSurPoste.getCommande().getType());
 				produitDesc2
 						.setText(produitSurPoste.getCommande().getMatiere());
@@ -121,8 +124,9 @@ public class MenuActivity extends SherlockActivity {
 					  if
 					  (DbPoste.TerminerTraitementProduit(produitSurPoste,
 					  poste, utilisateur, MenuActivity.this)) {
-					  
-					  finish(); startActivity(getIntent()); 
+
+						  startActivity(getIntent()); 
+						  finish(); 
 					  }
 					 
 

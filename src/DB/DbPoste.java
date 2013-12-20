@@ -248,7 +248,7 @@ public class DbPoste {
 		SQLiteDatabase db = new DatabaseSQLite(context).getWritableDatabase();
 		
 		ContentValues values = new ContentValues();
-        values.put(DbProduit.COL_ID_POSTE, produit.getPoste().getId());
+        values.put(DbProduit.COL_ID_POSTE, produit.getPoste().getId()); //TODO poste du produit est NULL !!
         
 		int retour = db.update(DbProduit.TABLE_NAME, 
 				values, 

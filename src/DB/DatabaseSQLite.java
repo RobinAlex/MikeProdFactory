@@ -102,7 +102,7 @@ public class DatabaseSQLite extends SQLiteOpenHelper {
 		
 		//Produits
 		db.execSQL("INSERT INTO Produit (id_produit, id_commande, id_poste, flag_attente, flag_termine) "
-				+"VALUES (1, 1, 1, 0, 0)");
+				+"VALUES (1, 1, NULL, 0, 0)");
 		db.execSQL("INSERT INTO Produit (id_produit, id_commande, id_poste, flag_attente, flag_termine) "
 				+"VALUES (2, 1, 2, 1, 0)");
 		db.execSQL("INSERT INTO Produit (id_produit, id_commande, id_poste, flag_attente, flag_termine) "
@@ -143,8 +143,10 @@ public class DatabaseSQLite extends SQLiteOpenHelper {
 		db.execSQL("INSERT INTO Historique (id_poste, id_produit, id_utilisateur, date_Debut, date_Fin) "
 				+"VALUES(4, 8, 2, '2010-07-10Z15:44:45', '2010-07-10Z16:58:42');");
 		
+		/*
 		db.execSQL("INSERT INTO Historique (id_poste, id_produit, id_utilisateur, date_Debut, date_Fin) "
 				+"VALUES(1, 1, 1, '2013-12-20Z11:01:40', 'NULL');");
+				*/
 	}
 
 	@Override
