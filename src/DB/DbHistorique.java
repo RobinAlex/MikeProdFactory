@@ -1,5 +1,6 @@
 package DB;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.text.SimpleDateFormat;
 
@@ -9,6 +10,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.text.method.DateTimeKeyListener;
 
+import com.classes.mikaprod.Historique;
 import com.classes.mikaprod.Poste;
 import com.classes.mikaprod.Produit;
 import com.classes.mikaprod.Utilisateur;
@@ -21,6 +23,12 @@ public class DbHistorique {
 	public static final String COL_ID_PRODUIT = "id_produit";
 	public static final String COL_DATE_DEBUT = "date_Debut";
 	public static final String COL_DATE_FIN = "date_Fin";
+	public static final String[] COLS = new String[]{COL_ID, 
+													COL_ID_POSTE, 
+													COL_ID_UTILISATEUR, 
+													COL_ID_PRODUIT, 
+													COL_DATE_DEBUT, 
+													COL_DATE_FIN};
 	
 	/**
 	 * Trace le début de la production du produit, sur le poste, par l'utilisateur.
@@ -88,5 +96,16 @@ public class DbHistorique {
 		{
 			return false;
 		}
+	}
+	
+	public static ArrayList<Historique> GetAll(Context context)
+	{
+		ArrayList<Historique> historique = new ArrayList<Historique>();
+		SQLiteDatabase db = new DatabaseSQLite(context).getReadableDatabase();
+		
+		//TODO : code dat motherfucker
+		
+		
+		return historique;
 	}
 }
