@@ -62,4 +62,16 @@ public class CtrlUtilisateur {
 		
 	}
 	
+	public Boolean CheckPosteLibre(Poste poste) {
+		
+		Boolean status = false;
+		
+		int posteId = poste.getId();
+		
+		//DbUtilisateur.GetAll(CtrlUtilisateur.this);
+		
+		return status;
+		
+	}
+	
 }

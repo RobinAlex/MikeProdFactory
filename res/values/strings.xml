@@ -20,5 +20,7 @@
     <string name="tracabilite">Traçabilité</string>
     <string name="FinirProduitBtn">Finir ce produit</string>
     <string name="ProduitEnCour">Produit en cours</string>
+    <string name="title_activity_historique">HistoriqueActivity</string>
+    <string name="poste_menu">Retour au poste</string>
 
 </resources>

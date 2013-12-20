@@ -30,6 +30,10 @@
             android:name="activities.FileAttenteActivity"
             android:label="@string/title_activity_file_attente" >
         </activity>
+        <activity
+            android:name="activities.HistoriqueActivity"
+            android:label="@string/title_activity_historique" >
+        </activity>
     </application>
 
 </manifest>
