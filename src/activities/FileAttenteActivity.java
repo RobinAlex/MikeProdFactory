@@ -103,10 +103,10 @@ public class FileAttenteActivity extends SherlockActivity implements
 	@Override
 	public void onItemClick(final AdapterView<?> adapter, View v, int position,
 			long id) {
-		
-		//produit = dataAdapter.getItem(position);
+
+		// produit = dataAdapter.getItem(position);
 		produit = (Produit) this.listeFile.getItemAtPosition(position);
-		
+
 		AlertDialog.Builder dialogue = new AlertDialog.Builder(
 				FileAttenteActivity.this);
 
@@ -124,19 +124,19 @@ public class FileAttenteActivity extends SherlockActivity implements
 
 		.setPositiveButton("Engager", new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int id) {
-				
 
 				CtrlProduit ctrlProduit = new CtrlProduit();
 
-				if (ctrlProduit.EngagerProduit(produit, poste, utilisateur)) {
+				if (ctrlProduit.EngagerProduit(produit, poste, utilisateur,
+						FileAttenteActivity.this)) {
 					Intent posteIntent = new Intent(FileAttenteActivity.this,
-							MenuActivity.class);					
-					
+							MenuActivity.class);
+
 					posteIntent.putExtra("produitEnCour", produit);
 
 					posteIntent.putExtra("poste", poste);
 					posteIntent.putExtra("utilisateur", utilisateur);
-					
+
 					startActivity(posteIntent);
 					FileAttenteActivity.this.finish();
 				} else {

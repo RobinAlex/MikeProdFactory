@@ -17,14 +17,6 @@
         android:layout_alignParentTop="true"
         android:text="@string/ChoixProduit" />
 
-    <Button
-        android:id="@+id/finirProduitBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/fileBtn"
-        android:layout_alignParentBottom="true"
-        android:text="@string/FinirProduitBtn" />
-
     <TextView
         android:id="@+id/ProduitEnCour"
         android:layout_width="wrap_content"
@@ -35,5 +27,44 @@
         android:text="@string/ProduitEnCour"
         android:textColor="@color/Gris"
         android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TextView
+        android:id="@+id/ProduitDesc1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/ProduitEnCour"
+        android:layout_marginTop="35dp"
+        android:text="Medium Text"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/ProductDesc2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/ProduitDesc1"
+        android:layout_alignParentRight="true"
+        android:text="Medium Text"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/ProduitDesc3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/ProduitDesc1"
+        android:layout_marginTop="18dp"
+        android:text="Medium Text"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <Button
+        android:id="@+id/finirProduitBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/ProduitDesc3"
+        android:layout_marginTop="32dp"
+        android:text="@string/FinirProduitBtn" />
 
 </RelativeLayout>

@@ -310,6 +310,6 @@ public class DbPoste {
 			produit = null;
 		}
 		
-		return produit;
+		return null;
 	}
 }

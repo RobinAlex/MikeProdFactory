@@ -10,6 +10,8 @@ import com.example.mikaprod.R;
 
 import controles.CtrlUtilisateur;
 
+import DB.DbPoste;
+import DB.DbProduit;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -23,13 +25,12 @@ public class MenuActivity extends SherlockActivity {
 	private Poste poste;
 	private Produit produitEnCours;
 	private Button fileBtn;
+	private Produit produitSurPoste;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_menu);
-
-		
 
 	}
 
@@ -39,32 +40,36 @@ public class MenuActivity extends SherlockActivity {
 		getSupportMenuInflater().inflate(R.menu.menu, menu);
 		return true;
 	}
-	
-	
-	
 
 	@Override
 	protected void onResume() {
 		// TODO Auto-generated method stub
 		super.onResume();
-		
+
 		utilisateur = (Utilisateur) this.getIntent().getSerializableExtra(
 				"utilisateur");
 
 		poste = (Poste) this.getIntent().getSerializableExtra("poste");
-		
+
 		produitEnCours = (Produit) this.getIntent().getSerializableExtra(
 				"produitEnCour");
-		
-		
-		
+
 		fileBtn = (Button) findViewById(R.id.fileBtn);
-		
+
 		Button finirBtn = (Button) findViewById(R.id.finirProduitBtn);
 		finirBtn.setVisibility(View.GONE);
-		
+
 		TextView titre = (TextView) findViewById(R.id.ProduitEnCour);
 		titre.setVisibility(View.GONE);
+
+		TextView produitDesc1 = (TextView) findViewById(R.id.ProduitDesc1);
+		produitDesc1.setVisibility(View.GONE);
+
+		TextView produitDesc2 = (TextView) findViewById(R.id.ProductDesc2);
+		produitDesc2.setVisibility(View.GONE);
+
+		TextView produitDesc3 = (TextView) findViewById(R.id.ProduitDesc3);
+		produitDesc3.setVisibility(View.GONE);
 
 		this.setTitle(utilisateur.getNom() + "@" + poste.getNom());
 
@@ -79,13 +84,49 @@ public class MenuActivity extends SherlockActivity {
 
 			}
 
-		});				
-		
-		if (produitEnCours != null) {
+		});
+
+		if (produitEnCours != null
+				|| DbPoste.ProduitDejaEngageAuPoste(poste, MenuActivity.this)) {
+
 			fileBtn.setVisibility(View.GONE);
 			finirBtn.setVisibility(View.VISIBLE);
 			titre.setVisibility(View.VISIBLE);
+
+			produitDesc1.setVisibility(View.VISIBLE);
+			produitDesc2.setVisibility(View.VISIBLE);
+			produitDesc3.setVisibility(View.VISIBLE);
+
+			if (produitEnCours != null) {
+				produitSurPoste = produitEnCours;
+			} else {
+				produitSurPoste = DbPoste.GetProduitEngage(poste,
+						MenuActivity.this);
+			}
+
+			if (produitSurPoste != null) {
+				produitDesc1.setText(produitSurPoste.getCommande().getType());
+				produitDesc2
+						.setText(produitSurPoste.getCommande().getMatiere());
+				produitDesc3.setText(produitSurPoste.getCommande().getClient());
+			}
+
+			finirBtn.setOnClickListener(new View.OnClickListener() {
+				public void onClick(View v) {
+
+					if (DbPoste.TerminerTraitementProduit(produitSurPoste,
+							poste, utilisateur, MenuActivity.this)) {
+
+						finish();
+						startActivity(getIntent());
+					}
+
+				}
+
+			});
+
 		}
+
 	}
 
 	@Override
