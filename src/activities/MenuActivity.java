@@ -10,6 +10,7 @@ import com.example.mikaprod.R;
 
 import controles.CtrlUtilisateur;
 
+import DB.DbPoste;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -54,7 +55,7 @@ public class MenuActivity extends SherlockActivity {
 		poste = (Poste) this.getIntent().getSerializableExtra("poste");
 		
 		produitEnCours = (Produit) this.getIntent().getSerializableExtra(
-				"produitEnCour");		
+				"produitEnCour");
 		
 		fileBtn = (Button) findViewById(R.id.fileBtn);
 		
@@ -88,21 +89,35 @@ public class MenuActivity extends SherlockActivity {
 
 		});				
 		
-		if (produitEnCours != null) {
+		if (produitEnCours != null || DbPoste.ProduitDejaEngageAuPoste(poste, MenuActivity.this)) {
 			fileBtn.setVisibility(View.GONE);
 			finirBtn.setVisibility(View.VISIBLE);
 			titre.setVisibility(View.VISIBLE);
 			
-			produitDesc1.setVisibility(View.VISIBLE);
-			produitDesc2.setVisibility(View.VISIBLE);
-			produitDesc3.setVisibility(View.VISIBLE);
 			
-			produitDesc1.setText(produitEnCours.getCommande().getType());
-			produitDesc2.setText(produitEnCours.getCommande().getMatiere());
-			produitDesc3.setText(produitEnCours.getCommande().getClient());
+			
+			Produit produitSurPoste = new Produit();
+			
+			if (produitEnCours != null) {
+				
+				produitDesc1.setVisibility(View.VISIBLE);
+				produitDesc2.setVisibility(View.VISIBLE);
+				produitDesc3.setVisibility(View.VISIBLE);
+				
+				produitSurPoste = produitEnCours;
+				produitDesc1.setText(produitSurPoste.getCommande().getType());
+				produitDesc2.setText(produitSurPoste.getCommande().getMatiere());
+				produitDesc3.setText(produitSurPoste.getCommande().getClient());
+			} else {
+				//produitSurPoste = DbPoste.GetProduitEngage(poste, MenuActivity.this);
+			}
+			
+			
 			
 			
 		}
+		
+		
 	}
 
 	@Override
