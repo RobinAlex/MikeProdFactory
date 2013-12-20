@@ -97,22 +97,26 @@ public class DatabaseSQLite extends SQLiteOpenHelper {
 				+"VALUES (2, 'QualiFenetres', 2, 'Fenetre', 'Alu');");
 		db.execSQL("INSERT INTO Commande (id_commande, client, quantite, type, matiere)"
 				+"VALUES (3, 'OuestFenetres', 2, 'Fenetre', 'Acier');");
+		db.execSQL("INSERT INTO Commande (id_commande, client, quantite, type, matiere)"
+				+"VALUES (4, 'Portes-Acier', 1, 'Porte', 'Acier');");
 		
 		//Produits
-		db.execSQL("INSERT INTO Produit (id_commande, id_poste, flag_attente, flag_termine) "
-				+"VALUES (1, NULL, 0, 0)");
-		db.execSQL("INSERT INTO Produit (id_commande, id_poste, flag_attente, flag_termine) "
-				+"VALUES (1, 2, 1, 0)");
-		db.execSQL("INSERT INTO Produit (id_commande, id_poste, flag_attente, flag_termine) "
-				+"VALUES (1, 2, 1, 0)");
-		db.execSQL("INSERT INTO Produit (id_commande, id_poste, flag_attente, flag_termine) "
-				+"VALUES (2, NULL, 0, 0)");
-		db.execSQL("INSERT INTO Produit (id_commande, id_poste, flag_attente, flag_termine) "
-				+"VALUES (2, 4, 1, 0)");
-		db.execSQL("INSERT INTO Produit (id_commande, id_poste, flag_attente, flag_termine) "
-				+"VALUES (3, 4, 1, 1)");
-		db.execSQL("INSERT INTO Produit (id_commande, id_poste, flag_attente, flag_termine) "
-				+"VALUES (3, 4, 0, 1)");
+		db.execSQL("INSERT INTO Produit (id_produit, id_commande, id_poste, flag_attente, flag_termine) "
+				+"VALUES (1, 1, 1, 0, 0)");
+		db.execSQL("INSERT INTO Produit (id_produit, id_commande, id_poste, flag_attente, flag_termine) "
+				+"VALUES (2, 1, 2, 1, 0)");
+		db.execSQL("INSERT INTO Produit (id_produit, id_commande, id_poste, flag_attente, flag_termine) "
+				+"VALUES (3, 1, 2, 1, 0)");
+		db.execSQL("INSERT INTO Produit (id_produit, id_commande, id_poste, flag_attente, flag_termine) "
+				+"VALUES (4, 2, NULL, 0, 0)");
+		db.execSQL("INSERT INTO Produit (id_produit, id_commande, id_poste, flag_attente, flag_termine) "
+				+"VALUES (5, 2, 4, 1, 0)");
+		db.execSQL("INSERT INTO Produit (id_produit, id_commande, id_poste, flag_attente, flag_termine) "
+				+"VALUES (6, 3, 4, 1, 1)");
+		db.execSQL("INSERT INTO Produit (id_produit, id_commande, id_poste, flag_attente, flag_termine) "
+				+"VALUES (7, 3, 4, 0, 1)");
+		db.execSQL("INSERT INTO Produit (id_produit, id_commande, id_poste, flag_attente, flag_termine) "
+				+"VALUES (8, 4, 4, 0, 1)");
 		
 		//Postes
 		db.execSQL("INSERT INTO Poste (id_poste, nom, ordre_flux, flag_final) "
@@ -125,9 +129,22 @@ public class DatabaseSQLite extends SQLiteOpenHelper {
 						+"VALUES (4, 'Assemblage', 4, 1);");
 		
 		//Utilisateurs
-		db.execSQL("INSERT INTO Utilisateur (nom) VALUES ('Didier');");
-		db.execSQL("INSERT INTO Utilisateur (nom) VALUES ('Michel');");
-		db.execSQL("INSERT INTO Utilisateur (nom) VALUES ('Robert');");
+		db.execSQL("INSERT INTO Utilisateur (id_utilisateur, nom) VALUES (1, 'Didier');");
+		db.execSQL("INSERT INTO Utilisateur (id_utilisateur, nom) VALUES (2, 'Michel');");
+		db.execSQL("INSERT INTO Utilisateur (id_utilisateur, nom) VALUES (3, 'Robert');");
+		
+		//Historique
+		db.execSQL("INSERT INTO Historique (id_poste, id_produit, id_utilisateur, date_Debut, date_Fin) "
+				+"VALUES(1, 8, 2, '2010-07-10Z13:37:02', '2010-07-10Z14:22:09');");
+		db.execSQL("INSERT INTO Historique (id_poste, id_produit, id_utilisateur, date_Debut, date_Fin) "
+				+"VALUES(2, 8, 2, '2010-07-10Z14:01:22', '2010-07-10Z14:55:11');");
+		db.execSQL("INSERT INTO Historique (id_poste, id_produit, id_utilisateur, date_Debut, date_Fin) "
+				+"VALUES(3, 8, 2, '2010-07-10Z14:57:07', '2010-07-10Z15:32:03');");
+		db.execSQL("INSERT INTO Historique (id_poste, id_produit, id_utilisateur, date_Debut, date_Fin) "
+				+"VALUES(4, 8, 2, '2010-07-10Z15:44:45', '2010-07-10Z16:58:42');");
+		
+		db.execSQL("INSERT INTO Historique (id_poste, id_produit, id_utilisateur, date_Debut, date_Fin) "
+				+"VALUES(1, 1, 1, '2013-12-20Z11:01:40', 'NULL');");
 	}
 
 	@Override
