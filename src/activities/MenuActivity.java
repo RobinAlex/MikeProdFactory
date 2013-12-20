@@ -6,7 +6,6 @@ import com.actionbarsherlock.view.MenuItem;
 import com.classes.mikaprod.Poste;
 import com.classes.mikaprod.Produit;
 import com.classes.mikaprod.Utilisateur;
-import com.example.mikaprod.HistoriqueActivity;
 import com.example.mikaprod.R;
 
 import controles.CtrlUtilisateur;
@@ -86,9 +85,9 @@ public class MenuActivity extends SherlockActivity {
 			}
 
 		});
-
-		if (produitEnCours != null
-				|| DbPoste.ProduitDejaEngageAuPoste(poste, MenuActivity.this)) {
+		
+		if ((produitEnCours != null)
+				|| (DbPoste.ProduitDejaEngageAuPoste(poste, MenuActivity.this))) {
 
 			fileBtn.setVisibility(View.GONE);
 			finirBtn.setVisibility(View.VISIBLE);

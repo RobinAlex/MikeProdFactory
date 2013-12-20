@@ -1,4 +1,4 @@
-package com.example.mikaprod;
+package activities;
 
 import java.util.ArrayList;
 
@@ -8,12 +8,14 @@ import com.actionbarsherlock.view.MenuItem;
 import com.classes.mikaprod.Historique;
 import com.classes.mikaprod.Poste;
 import com.classes.mikaprod.Utilisateur;
+import com.example.mikaprod.R;
+import com.example.mikaprod.R.id;
+import com.example.mikaprod.R.layout;
+import com.example.mikaprod.R.menu;
 
 import controles.CtrlUtilisateur;
 
 import DB.DbHistorique;
-import activities.LoginActivity;
-import activities.MenuActivity;
 import android.os.Bundle;
 import android.content.Intent;
 import android.widget.ArrayAdapter;

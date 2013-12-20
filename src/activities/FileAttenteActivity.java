@@ -7,7 +7,6 @@ import com.actionbarsherlock.view.MenuItem;
 import com.classes.mikaprod.Poste;
 import com.classes.mikaprod.Produit;
 import com.classes.mikaprod.Utilisateur;
-import com.example.mikaprod.HistoriqueActivity;
 import com.example.mikaprod.R;
 
 import controles.CtrlProduit;
