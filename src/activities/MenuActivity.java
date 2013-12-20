@@ -6,12 +6,13 @@ import com.actionbarsherlock.view.MenuItem;
 import com.classes.mikaprod.Poste;
 import com.classes.mikaprod.Produit;
 import com.classes.mikaprod.Utilisateur;
+import com.example.mikaprod.HistoriqueActivity;
 import com.example.mikaprod.R;
 
 import controles.CtrlUtilisateur;
 
 import DB.DbPoste;
-import DB.DbProduit;
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -109,17 +110,28 @@ public class MenuActivity extends SherlockActivity {
 				produitDesc2
 						.setText(produitSurPoste.getCommande().getMatiere());
 				produitDesc3.setText(produitSurPoste.getCommande().getClient());
-			}
 
+				
+			}
+			
 			finirBtn.setOnClickListener(new View.OnClickListener() {
+				@SuppressLint("NewApi")
 				public void onClick(View v) {
 
-					if (DbPoste.TerminerTraitementProduit(produitSurPoste,
-							poste, utilisateur, MenuActivity.this)) {
+					/*
+					 * if
+					 * (DbPoste.TerminerTraitementProduit(produitSurPoste,
+					 * poste, utilisateur, MenuActivity.this)) {
+					 * 
+					 * finish(); startActivity(getIntent()); }
+					 */
 
-						finish();
-						startActivity(getIntent());
-					}
+					Intent refreshIntent = MenuActivity.this.getIntent();
+					
+					refreshIntent.putExtra("poste", poste);
+					refreshIntent.putExtra("utilisateur", utilisateur);
+					
+					MenuActivity.this.recreate();
 
 				}
 
@@ -152,6 +164,17 @@ public class MenuActivity extends SherlockActivity {
 						"Erreur pendant la déconnexion", Toast.LENGTH_SHORT)
 						.show();
 			}
+			return true;
+
+		case R.id.trace_id:
+			Intent histoIntent = new Intent(MenuActivity.this,
+					HistoriqueActivity.class);
+
+			histoIntent.putExtra("poste", poste);
+			histoIntent.putExtra("utilisateur", utilisateur);
+
+			startActivity(histoIntent);
+
 			return true;
 		}
 		return false;

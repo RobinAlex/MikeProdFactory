@@ -7,6 +7,7 @@ import com.actionbarsherlock.view.MenuItem;
 import com.classes.mikaprod.Poste;
 import com.classes.mikaprod.Produit;
 import com.classes.mikaprod.Utilisateur;
+import com.example.mikaprod.HistoriqueActivity;
 import com.example.mikaprod.R;
 
 import controles.CtrlProduit;
@@ -73,12 +74,23 @@ public class FileAttenteActivity extends SherlockActivity implements
 						.show();
 
 				startActivity(intentLogin);
+				FileAttenteActivity.this.finish();
 			} else {
 				Toast.makeText(FileAttenteActivity.this,
 						"Erreur pendant la déconnexion", Toast.LENGTH_SHORT)
 						.show();
 			}
 			return true;
+
+		case R.id.trace_id:
+			Intent histoIntent = new Intent(FileAttenteActivity.this,
+					HistoriqueActivity.class);
+			
+			startActivity(histoIntent);
+			FileAttenteActivity.this.finish();
+			
+			return true;
+			
 		}
 		return false;
 	}
