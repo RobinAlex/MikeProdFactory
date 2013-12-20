@@ -23,7 +23,7 @@ public class DbPoste {
 	 * Retourne le poste qui correspond à l'ID passé en paramètre.
 	 * @param idPoste
 	 * @param context
-	 * @return null si aucun object trouvé en base
+	 * @return Poste, null si aucun object trouvé en base
 	 */
 	public static Poste GetPosteById(int idPoste, Context context) 
 	{
@@ -51,7 +51,7 @@ public class DbPoste {
 	/**
 	 * Retourne tous les postes de la base triés par l'ordre des flux.
 	 * @param context
-	 * @return
+	 * @return int
 	 */
 	public static ArrayList<Poste> GetAll(Context context)
 	{
@@ -80,7 +80,7 @@ public class DbPoste {
 	/**
 	 * Cherche l'id du dernier poste de la chaîne de production.
 	 * @param context
-	 * @return
+	 * @return int
 	 */
 	public static int GetIdDernierPoste(Context context)
 	{
@@ -107,7 +107,7 @@ public class DbPoste {
 	/**
 	 * Cherche l'id du premier poste de la chaîne de production
 	 * @param context
-	 * @return
+	 * @return int
 	 */
 	public static int GetIdPremierPoste(Context context)
 	{
@@ -137,7 +137,7 @@ public class DbPoste {
 	 * Retourne le poste suivant dans le flux.
 	 * @param poste
 	 * @param context
-	 * @return
+	 * @return Poste
 	 */
 	public static Poste GetPosteSuivant(Poste poste, Context context)
 	{
@@ -169,7 +169,7 @@ public class DbPoste {
 	 * Regarde si un produit est déjà engagé dans ce poste.
 	 * @param poste
 	 * @param context
-	 * @return
+	 * @return Boolean
 	 */
 	public static Boolean ProduitDejaEngageAuPoste(Poste poste, Context context)
 	{
@@ -197,7 +197,7 @@ public class DbPoste {
 	 * @param poste
 	 * @param utilisateur
 	 * @param context
-	 * @return
+	 * @return Boolean
 	 */
 	public static Boolean CommencerTraitementProduit(Produit produit, 
 			Poste poste, Utilisateur utilisateur, Context context)
@@ -237,7 +237,7 @@ public class DbPoste {
 	 * @param poste
 	 * @param utilisateur
 	 * @param context
-	 * @return
+	 * @return Boolean
 	 */
 	public static Boolean TerminerTraitementProduit(Produit produit, 
 			Poste poste, Utilisateur utilisateur, Context context)
@@ -267,6 +267,14 @@ public class DbPoste {
 			resultat = false;
 		}
 		return resultat;
+	}
+	
+	
+	public static Produit GetProduitEngage(Poste poste, Context context)
+	{
+		Produit produit = new Produit();
+		//TODO : code
 		
+		return produit;
 	}
 }

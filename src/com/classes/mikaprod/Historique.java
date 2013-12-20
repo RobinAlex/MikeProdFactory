@@ -69,7 +69,7 @@ public class Historique {
 	}
 	
 	//METHODES
-	public Boolean AjouterLigneHistorique(Poste poste, Utilisateur utilisateur, Produit produit, Boolean entree) {
+/*	public Boolean AjouterLigneHistorique(Poste poste, Utilisateur utilisateur, Produit produit, Boolean entree) {
 		
 		Boolean status = false;
 		Date dateActuelle = new Date();
@@ -116,7 +116,7 @@ public class Historique {
 		
 		return status;
 		
-	}
+	}*/
 	
 	
 	
