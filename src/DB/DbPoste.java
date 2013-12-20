@@ -17,6 +17,8 @@ public class DbPoste {
 	public static final String COL_NOM = "nom";
 	public static final String COL_ORDRE_FLUX = "ordre_flux";
 	public static final String COL_POSTE_FINAL = "flag_final";
+	public static final String[] COLS = 
+			new String[] {COL_ID, COL_NOM, COL_ORDRE_FLUX, COL_POSTE_FINAL};
 
 	
 	/**
@@ -30,8 +32,7 @@ public class DbPoste {
 		Poste poste = new Poste();
 		SQLiteDatabase db = new DatabaseSQLite(context).getReadableDatabase();
 
-		Cursor cursor = db.query(TABLE_NAME, new String[] { COL_ID, COL_NOM,
-				COL_ORDRE_FLUX, COL_POSTE_FINAL }, null, null, null, null,
+		Cursor cursor = db.query(TABLE_NAME, COLS, null, null, null, null,
 				null, null);
 		if(cursor.moveToFirst())
 		{
@@ -58,7 +59,7 @@ public class DbPoste {
 		ArrayList<Poste> postes = new ArrayList<Poste>();
 		SQLiteDatabase db = new DatabaseSQLite(context).getReadableDatabase();
 		Cursor cursor = db.query(TABLE_NAME, 
-				new String[] { COL_ID, COL_NOM, COL_ORDRE_FLUX, COL_POSTE_FINAL}, 
+				COLS, 
 				null, null, null, null, COL_ORDRE_FLUX);
 		if(cursor.moveToFirst())
 		{
@@ -128,7 +129,7 @@ public class DbPoste {
 		{
 			idPremierPoste = -1;
 		}
-		
+		db.close();
 		return idPremierPoste;
 	}
 	
@@ -226,6 +227,7 @@ public class DbPoste {
 		{
 			resultat = false;
 		}
+		db.close();
 		return resultat;
 	}
 	
@@ -266,14 +268,47 @@ public class DbPoste {
 		{
 			resultat = false;
 		}
+		db.close();
 		return resultat;
 	}
 	
-	
+	/**
+	 * Si un produit est engagé sur le poste, il sera retourné.
+	 * ! LE TEST DE VERIFICATION (si un produit est engagé) 
+	 * EST INCLUS DANS LA METHODE ! 
+	 * 
+	 * Ne retourne que le PREMIER produit engagé.
+	 * @param poste
+	 * @param context
+	 * @return Le PREMIER Produit engagé ou null si aucun produit n'est 
+	 * engagé sur le poste
+	 */
 	public static Produit GetProduitEngage(Poste poste, Context context)
 	{
 		Produit produit = new Produit();
-		//TODO : code
+		if(DbPoste.ProduitDejaEngageAuPoste(poste, context))
+		{
+			SQLiteDatabase db = new DatabaseSQLite(context).getWritableDatabase();
+			Cursor cursor = db.query(DbProduit.TABLE_NAME, 
+					new String[] {COL_ID}, 
+					DbProduit.COL_ID_POSTE +" = ?", 
+					new String[] { String.valueOf(poste.getId()) }, 
+					null, null, null);
+
+			if(cursor.moveToFirst())
+			{
+			   produit = DbProduit.GetProduitById(
+						   Integer.parseInt(
+							   cursor.getString(
+								   cursor.getColumnIndex(DbProduit.COL_ID))), 
+								   context);
+			}
+			
+			db.close();
+		}else
+		{
+			produit = null;
+		}
 		
 		return null;
 	}

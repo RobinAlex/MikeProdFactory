@@ -41,6 +41,7 @@ public class DbHistorique {
 	public static Boolean TracerDebutDeTraitement(Produit produit, 
 			Poste poste, Utilisateur utilisateur, Context context)
 	{
+		Boolean resultat = false;
 		SQLiteDatabase db = new DatabaseSQLite(context).getWritableDatabase();
 		ContentValues values = new ContentValues();
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ");
@@ -55,11 +56,14 @@ public class DbHistorique {
 
 		if(retour == 1)
 		{
-			return true;
+			resultat =  true;
 		}else
 		{
-			return false;
+			resultat = false;
 		}
+		db.close();
+		
+		return resultat;
 	}
 	
 	/**
@@ -73,6 +77,7 @@ public class DbHistorique {
 	public static Boolean TracerFinDeTraitement(Produit produit, 
 			Poste poste, Utilisateur utilisateur, Context context)
 	{
+		Boolean resultat = false;
 		SQLiteDatabase db = new DatabaseSQLite(context).getWritableDatabase();
 		
 		ContentValues values = new ContentValues();
@@ -91,11 +96,13 @@ public class DbHistorique {
 
 		if(retour == 1)
 		{
-			return true;
+			resultat =  true;
 		}else
 		{
-			return false;
+			resultat = false;
 		}
+		db.close();
+		return resultat;
 	}
 	
 	public static ArrayList<Historique> GetAll(Context context)
@@ -106,6 +113,7 @@ public class DbHistorique {
 		//TODO : code dat motherfucker
 		
 		
+		db.close();
 		return historique;
 	}
 }
