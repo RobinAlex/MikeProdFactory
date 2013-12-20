@@ -116,9 +116,9 @@ public class DbHistorique {
 		ArrayList<Historique> historique = new ArrayList<Historique>();
 		SQLiteDatabase db = new DatabaseSQLite(context).getReadableDatabase();
 		
-		Cursor cursor = db.query(TABLE_NAME, 
+		Cursor cursor = db.query(DbHistorique.TABLE_NAME, 
 				COLS, 
-				null, null, null, null, COL_ID);
+				null, null, null, null, DbHistorique.COL_ID);
 		if(cursor.moveToFirst())
 		{
 			do{

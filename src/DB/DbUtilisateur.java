@@ -117,10 +117,16 @@ public class DbUtilisateur {
 		{
 			u.setId(IdUtilisateur);
 			u.setNom(String.valueOf(cursor.getString(cursor.getColumnIndex(COL_NOM))));
-			u.setPoste(DbPoste.GetPosteById(
-					Integer.parseInt(
-					cursor.getString(
-					cursor.getColumnIndex(COL_POSTE))), context));
+			String idPoste = cursor.getString(
+					cursor.getColumnIndex(COL_POSTE));
+			if(idPoste == null)
+			{
+				u.setPoste(null);
+			}else
+			{
+				u.setPoste(DbPoste.GetPosteById(Integer.parseInt(idPoste), context));
+			}
+			
 		}else
 		{
 			u = null;

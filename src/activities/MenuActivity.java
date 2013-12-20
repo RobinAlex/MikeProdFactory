@@ -117,13 +117,14 @@ public class MenuActivity extends SherlockActivity {
 				@SuppressLint("NewApi")
 				public void onClick(View v) {
 
-					/*
-					 * if
-					 * (DbPoste.TerminerTraitementProduit(produitSurPoste,
-					 * poste, utilisateur, MenuActivity.this)) {
-					 * 
-					 * finish(); startActivity(getIntent()); }
-					 */
+					
+					  if
+					  (DbPoste.TerminerTraitementProduit(produitSurPoste,
+					  poste, utilisateur, MenuActivity.this)) {
+					  
+					  finish(); startActivity(getIntent()); 
+					  }
+					 
 
 					Intent refreshIntent = MenuActivity.this.getIntent();
 					

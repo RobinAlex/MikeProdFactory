@@ -18,7 +18,13 @@ import controles.CtrlUtilisateur;
 import DB.DbHistorique;
 import android.os.Bundle;
 import android.content.Intent;
+import android.database.DataSetObserver;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Adapter;
 import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -60,8 +66,8 @@ public class HistoriqueActivity extends SherlockActivity {
 				.GetAll(HistoriqueActivity.this);
 
 		// Population du Listview
-		ArrayAdapter<Historique> dataAdapter = new ArrayAdapter<Historique>(this,
-				android.R.layout.simple_list_item_1, listeHisto);
+		HistoriqueAdapter dataAdapter = new HistoriqueAdapter(this,
+						android.R.layout.simple_list_item_1, listeHisto);
 
 		histoListe.setAdapter(dataAdapter);
 	}
