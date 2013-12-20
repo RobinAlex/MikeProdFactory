@@ -22,6 +22,57 @@ public class DbProduit {
 		COL_FLAG_ATTENTE, COL_FLAG_TERMINE};
 
 	
+	/**
+	 * Cherche le produit correspondant au ID passé en paramètre.
+	 * @param idProduit
+	 * @param context
+	 * @return Produit ou null si aucun produit trouvé.
+	 */
+	public static Produit GetProduitById(int idProduit, Context context)
+	{
+		Produit p = new Produit();
+		SQLiteDatabase db = new DatabaseSQLite(context).getReadableDatabase();
+		Cursor cursor = db.query(DbProduit.TABLE_NAME, 
+				COLS, 
+				COL_ID + " = ? ", 
+				new String[] { String.valueOf(idProduit)}, 
+				null, 
+				null, 
+				null);
+		
+		if(cursor.moveToFirst())
+		{
+			p.setId(Integer.parseInt(cursor.getString(cursor.getColumnIndex(COL_ID))));
+			String tempIdPoste = cursor.getString(cursor.getColumnIndex(COL_ID_POSTE));
+			Poste posteProduit = null;
+			if(tempIdPoste != null && !tempIdPoste.equals("NULL"))
+	        {
+	        	posteProduit = DbPoste.GetPosteById(Integer.parseInt(tempIdPoste), context);
+	        }
+			p.setPoste(posteProduit);
+			
+			Boolean flagEnAttente = Integer.parseInt(
+					cursor.getString(
+					cursor.getColumnIndex(COL_FLAG_ATTENTE))) == 1 ? true : false;
+			Boolean flagTermine = Integer.parseInt(
+					cursor.getString(
+					cursor.getColumnIndex(COL_FLAG_TERMINE))) == 1 ? true : false;
+			p.setFlagEnAttente(flagEnAttente);
+			p.setFlagProduitTermine(flagTermine);
+			p.setCommande(
+				DbCommande.GetCommandeById(
+					Integer.parseInt(
+					cursor.getString(
+					cursor.getColumnIndex(COL_ID_COMMANDE))), context));
+		}else
+		{
+			p = null;
+		}
+		
+		return p;
+	}
+	
+	
 	public static ArrayList<Produit> GetProduitsATravailler(Poste poste, Context context)
 	{
 		ArrayList<Produit> produits = new ArrayList<Produit>();
@@ -64,28 +115,9 @@ public class DbProduit {
 		{
 			do{
 				Produit p = new Produit();
-				p.setId(Integer.parseInt(cursor.getString(cursor.getColumnIndex(COL_ID))));
-				String tempIdPoste = cursor.getString(cursor.getColumnIndex(COL_ID_POSTE));
-				Poste posteProduit = null;
-				if(tempIdPoste != null && !tempIdPoste.equals("NULL"))
-                {
-                	posteProduit = DbPoste.GetPosteById(Integer.parseInt(tempIdPoste), context);
-                }
-				p.setPoste(posteProduit);
-				
-				Boolean flagEnAttente = Integer.parseInt(
-						cursor.getString(
-						cursor.getColumnIndex(COL_FLAG_ATTENTE))) == 1 ? true : false;
-				Boolean flagTermine = Integer.parseInt(
-						cursor.getString(
-						cursor.getColumnIndex(COL_FLAG_TERMINE))) == 1 ? true : false;
-				p.setFlagEnAttente(flagEnAttente);
-				p.setFlagProduitTermine(flagTermine);
-				p.setCommande(
-					DbCommande.GetCommandeById(
-						Integer.parseInt(
-						cursor.getString(
-						cursor.getColumnIndex(COL_ID_COMMANDE))), context));
+				int idProduit = Integer.parseInt(
+						cursor.getString(cursor.getColumnIndex(COL_ID)));
+			 	p = DbProduit.GetProduitById(idProduit, context);
 				produits.add(p);
 			}while(cursor.moveToNext());
 		}

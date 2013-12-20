@@ -54,7 +54,7 @@ public class DbCommande {
 		{
 			commande = null;
 		}
-		
+		db.close();
 		return commande;
 	}
 }
