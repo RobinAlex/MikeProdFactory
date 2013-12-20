@@ -7,6 +7,7 @@ import android.content.Context;
 import com.classes.mikaprod.Poste;
 import com.classes.mikaprod.Utilisateur;
 
+import DB.DbPoste;
 import DB.DbUtilisateur;
 
 public class CtrlUtilisateur {
@@ -67,34 +68,34 @@ public class CtrlUtilisateur {
 
 	}
 
+	
 	/**
-	 * Check si un utilisateur est connecté sur un poste
-	 * 
+	 * Regarde si un utilisateur peut se connecter sur un poste.
+	 * @param utilisateur
 	 * @param poste
 	 * @param context
-	 * @return Boolean
+	 * @return True si personne sur le poste ou si l'user est deja connecté sur
+	 * ce poste.
 	 */
-	public Boolean LePosteEstLibre(Poste poste, Utilisateur utilisateurActuel,
-			Context context) {
-
-		int posteId = poste.getId();
-
-		ArrayList<Utilisateur> listeUtilisateur = DbUtilisateur.GetAll(context);
-
-		for (Utilisateur utilisateur : listeUtilisateur) {
-
-			if (utilisateur.getPoste() != null 
-					&& utilisateur.getPoste().getId() == posteId 
-					&& utilisateur.getId() == utilisateurActuel.getId()) {
+	public Boolean PeutSeConnecter(Utilisateur utilisateur, Poste poste, Context context)
+	{
+		if(utilisateur.getPoste() != null)
+		{
+			if(utilisateur.getPoste().getId() == poste.getId())
 				return true;
-				
-			} 				
-				
-
 		}
-
+		
+		
+		CtrlPoste ctrlPoste = new CtrlPoste();
+		if(ctrlPoste.LePosteEstLibre(poste, context)){
+			return true;
+		}
+		
 		return false;
-
 	}
+	
+	
+	
+	
 
 }

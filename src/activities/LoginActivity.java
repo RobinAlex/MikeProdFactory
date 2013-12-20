@@ -45,8 +45,8 @@ public class LoginActivity extends FragmentActivity {
 
 				CtrlUtilisateur ctrlUtilisateur = new CtrlUtilisateur();
 
-				if (ctrlUtilisateur.LePosteEstLibre(posteSelect,
-						utilisateurSelect, LoginActivity.this)) {
+				if (ctrlUtilisateur.PeutSeConnecter(
+						utilisateurSelect, posteSelect, LoginActivity.this)) {
 
 					if (ctrlUtilisateur.ConnexionAuPoste(utilisateurSelect,
 							posteSelect, LoginActivity.this)) {

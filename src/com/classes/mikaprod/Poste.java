@@ -1,6 +1,10 @@
 package com.classes.mikaprod;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+
+import DB.DbUtilisateur;
+import android.content.Context;
 
 public class Poste implements Serializable {
 
@@ -62,5 +66,7 @@ public class Poste implements Serializable {
 	public String toString() {
 		return this.getNom();
 	}
+	
+
 
 }
