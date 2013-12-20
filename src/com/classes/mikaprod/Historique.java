@@ -67,6 +67,16 @@ public class Historique {
 		this.dateDebut = dateDebut;
 		this.dateFin = dateFin;
 	}
+
+	@Override
+	public String toString() {
+		return this.getProduit().getCommande().getClient() + "\n"+
+				this.getProduit().getCommande().getType() + " - " + 
+				this.getProduit().getCommande().getMatiere() + "\n"+
+				"@"+ this.getProduit().getPoste().getNom() + "\n"+
+				this.getDateDebut() + " -> " +
+				this.getDateFin() != "NULL" ? this.getDateFin() : "en cours...";
+	}
 	
 	//METHODES
 /*	public Boolean AjouterLigneHistorique(Poste poste, Utilisateur utilisateur, Produit produit, Boolean entree) {
@@ -117,6 +127,7 @@ public class Historique {
 		return status;
 		
 	}*/
+	
 	
 	
 	
