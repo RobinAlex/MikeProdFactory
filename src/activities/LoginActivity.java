@@ -45,20 +45,30 @@ public class LoginActivity extends FragmentActivity {
 
 				CtrlUtilisateur ctrlUtilisateur = new CtrlUtilisateur();
 
-				if (ctrlUtilisateur.ConnexionAuPoste(utilisateurSelect,
-						posteSelect, LoginActivity.this)) {
-					
-					Intent intentMenu = new Intent(LoginActivity.this, MenuActivity.class);
-					
-					intentMenu.putExtra("utilisateur", utilisateurSelect);
-					intentMenu.putExtra("poste", posteSelect);
-					
-					Toast.makeText(
-							LoginActivity.this,
-							"Connexion de " + utilisateurSelect + " sur "
-									+ posteSelect, Toast.LENGTH_SHORT).show();
-					
-					startActivity(intentMenu);
+				if (ctrlUtilisateur.LePosteEstLibre(posteSelect,
+						utilisateurSelect, LoginActivity.this)) {
+
+					if (ctrlUtilisateur.ConnexionAuPoste(utilisateurSelect,
+							posteSelect, LoginActivity.this)) {
+
+						Intent intentMenu = new Intent(LoginActivity.this,
+								MenuActivity.class);
+
+						intentMenu.putExtra("utilisateur", utilisateurSelect);
+						intentMenu.putExtra("poste", posteSelect);
+
+						Toast.makeText(
+								LoginActivity.this,
+								"Connexion de " + utilisateurSelect + " sur "
+										+ posteSelect, Toast.LENGTH_SHORT)
+								.show();
+
+						startActivity(intentMenu);
+					}
+				} else {
+					Toast.makeText(LoginActivity.this,
+							"Un utilisateur est déja connecté sur ce poste",
+							Toast.LENGTH_SHORT).show();
 				}
 
 			}
