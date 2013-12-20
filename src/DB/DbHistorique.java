@@ -105,14 +105,46 @@ public class DbHistorique {
 		return resultat;
 	}
 	
+	
+	/**
+	 * Retourne tout l'historique de la base.
+	 * @param context
+	 * @return ArrayList
+	 */
 	public static ArrayList<Historique> GetAll(Context context)
 	{
 		ArrayList<Historique> historique = new ArrayList<Historique>();
 		SQLiteDatabase db = new DatabaseSQLite(context).getReadableDatabase();
 		
-		//TODO : code dat motherfucker
-		
-		
+		Cursor cursor = db.query(TABLE_NAME, 
+				COLS, 
+				null, null, null, null, COL_ID);
+		if(cursor.moveToFirst())
+		{
+			do{
+				Historique h = new Historique();
+				h.setProduit(DbProduit.GetProduitById(
+						Integer.parseInt(
+						cursor.getString(
+						cursor.getColumnIndex(COL_ID_PRODUIT))), context));
+				h.setPoste(DbPoste.GetPosteById(
+						Integer.parseInt(
+						cursor.getString(
+						cursor.getColumnIndex(COL_ID_POSTE))), context));
+				h.setUtilisateur(DbUtilisateur.GetUtilisateurById(
+						Integer.parseInt(
+						cursor.getString(
+						cursor.getColumnIndex(COL_ID_UTILISATEUR))), context));
+				h.setDateDebut(String.valueOf(
+						cursor.getString(
+						cursor.getColumnIndex(DbHistorique.COL_DATE_DEBUT))));
+				h.setDateFin(String.valueOf(
+						cursor.getString(
+						cursor.getColumnIndex(DbHistorique.COL_DATE_FIN))));
+				
+				historique.add(h);
+			}while(cursor.moveToNext());
+		}
 		db.close();
 		return historique;
 	}

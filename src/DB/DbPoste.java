@@ -289,12 +289,25 @@ public class DbPoste {
 		if(DbPoste.ProduitDejaEngageAuPoste(poste, context))
 		{
 			SQLiteDatabase db = new DatabaseSQLite(context).getWritableDatabase();
-			Cursor cursor = db.query(DbProduit.TABLE_NAME, 
-					new String[] {COL_ID}, 
-					DbProduit.COL_ID_POSTE +" = ?", 
-					new String[] { String.valueOf(poste.getId()) }, 
+			Cursor cursor = null;
+			
+			if(poste.getId() == DbPoste.GetIdPremierPoste(context))
+			{//Si on est au premier poste
+				cursor = db.query(DbProduit.TABLE_NAME, 
+						new String[] {DbProduit.COL_ID, DbProduit.COL_ID_POSTE}, 
+						DbProduit.COL_ID_POSTE +" = ?", 
+						new String[] { "NULL" }, 
+						null, null, null);
+			}else
+			{
+				cursor = db.query(DbProduit.TABLE_NAME, 
+					new String[] {DbProduit.COL_ID, DbProduit.COL_ID_POSTE}, 
+					DbProduit.COL_ID_POSTE +" = ? AND " + 
+					DbProduit.COL_FLAG_ATTENTE + " = ? ", 
+					new String[] { String.valueOf(poste.getId()), String.valueOf(1) }, 
 					null, null, null);
-
+			}
+			
 			if(cursor.moveToFirst())
 			{
 			   produit = DbProduit.GetProduitById(
