@@ -275,6 +275,6 @@ public class DbPoste {
 		Produit produit = new Produit();
 		//TODO : code
 		
-		return produit;
+		return null;
 	}
 }
