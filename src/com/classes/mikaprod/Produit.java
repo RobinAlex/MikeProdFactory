@@ -1,7 +1,11 @@
 package com.classes.mikaprod;
 
-public class Produit {
+import java.io.Serializable;
+
+
+public class Produit implements Serializable {
 	
+	private static final long serialVersionUID = -3659851371151711807L;
 	private int id;
 	private Commande commande;
 	private Poste poste;
@@ -54,43 +58,13 @@ public class Produit {
 	
 	public Produit() {
 	}
-	
-	
-	// METHODES
-	public Poste getPosteById(int id) {
-		/* TODO SQL : Requete get Poste		 
-		 SELECT * FROM Poste where id = id;
-		*/
-		 
-		return poste;
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return this.getCommande().getType() + " " 
+				+ this.getCommande().getMatiere() + " (" 
+				+ this.getCommande().getClient()+")";
 	}
-	
-	
-	public boolean PasserAuPosteSuivant() { 
-		
-		boolean status = false;	
-		
-		if (this.getPoste() == null) {
-			// Au stock
-			this.setPoste(this.getPosteById(Poste.getIdPremierPoste()));			
-			status = true;
-			
-		} else if (this.getPoste().getOrdreFlux() < Poste.getIdDernierPoste()) {
-			// Si en prod, mais pas au dernier poste
-			this.setPoste(this.getPosteById(this.getPoste().getOrdreFlux() + 1));
-			status = true;
-		
-		} else if (this.getPoste().getOrdreFlux() == Poste.getIdDernierPoste()) {
-			// Au dernier poste
-			this.setFlagProduitTermine(true);
-			status = true;
-			
-		}
-		
-		return status;
-	}
-	
-	
-	
+
 	
 }

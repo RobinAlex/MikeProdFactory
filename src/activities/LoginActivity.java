@@ -7,8 +7,9 @@ import com.example.mikaprod.R;
 import controles.CtrlPoste;
 import controles.CtrlUtilisateur;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.app.Activity;
+import android.support.v4.app.FragmentActivity;
 import android.view.Menu;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -18,7 +19,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-public class LoginActivity extends Activity {
+public class LoginActivity extends FragmentActivity {
 
 	private Spinner spinnerUtilisateur, spinnerPoste;
 	private Poste posteSelect;
@@ -44,12 +45,30 @@ public class LoginActivity extends Activity {
 
 				CtrlUtilisateur ctrlUtilisateur = new CtrlUtilisateur();
 
-				if (ctrlUtilisateur.ConnexionAuPoste(utilisateurSelect,
-						posteSelect, LoginActivity.this)) {
-					Toast.makeText(
-							LoginActivity.this,
-							"Connexion de " + utilisateurSelect + " sur "
-									+ posteSelect, Toast.LENGTH_SHORT).show();
+				if (ctrlUtilisateur.PeutSeConnecter(
+						utilisateurSelect, posteSelect, LoginActivity.this)) {
+
+					if (ctrlUtilisateur.ConnexionAuPoste(utilisateurSelect,
+							posteSelect, LoginActivity.this)) {
+
+						Intent intentMenu = new Intent(LoginActivity.this,
+								MenuActivity.class);
+
+						intentMenu.putExtra("utilisateur", utilisateurSelect);
+						intentMenu.putExtra("poste", posteSelect);
+
+						Toast.makeText(
+								LoginActivity.this,
+								"Connexion de " + utilisateurSelect + " sur "
+										+ posteSelect, Toast.LENGTH_SHORT)
+								.show();
+
+						startActivity(intentMenu);
+					}
+				} else {
+					Toast.makeText(LoginActivity.this,
+							"Un utilisateur est déja connecté sur ce poste",
+							Toast.LENGTH_SHORT).show();
 				}
 
 			}
@@ -57,7 +76,6 @@ public class LoginActivity extends Activity {
 
 	}
 
-	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.login, menu);

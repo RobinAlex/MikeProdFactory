@@ -1,14 +1,19 @@
 package com.classes.mikaprod;
 
-public class Poste {
+import java.io.Serializable;
+import java.util.ArrayList;
 
+import DB.DbUtilisateur;
+import android.content.Context;
+
+public class Poste implements Serializable {
+
+	private static final long serialVersionUID = -528010672869529190L;
+	
 	private int id;
 	private String nom;
 	private int ordreFlux;
 	private Boolean flagFluxFinal;
-
-	private static int IdPremierPoste;
-	private static int IdDernierPoste;
 
 	// GETTERS
 	public int getId() {
@@ -25,14 +30,6 @@ public class Poste {
 
 	public Boolean getFlagFluxFinal() {
 		return flagFluxFinal;
-	}
-
-	public static int getIdPremierPoste() {
-		return IdPremierPoste;
-	}
-
-	public static int getIdDernierPoste() {
-		return IdDernierPoste;
 	}
 
 	// SETTERS
@@ -52,13 +49,6 @@ public class Poste {
 		this.flagFluxFinal = flagFluxFinal;
 	}
 
-	public static void setIdPremierPoste(int idPremierPoste) {
-		IdPremierPoste = idPremierPoste;
-	}
-
-	public static void setIdDernierPoste(int idDernierPoste) {
-		IdDernierPoste = idDernierPoste;
-	}
 
 	// CONSTUCTORS
 	public Poste(int id, String nom, int ordreFlux, Boolean flagFluxFinal) {
@@ -76,5 +66,7 @@ public class Poste {
 	public String toString() {
 		return this.getNom();
 	}
+	
+
 
 }

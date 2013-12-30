@@ -16,6 +16,8 @@ public class DbUtilisateur {
 	public static final String COL_ID = "id_utilisateur";
 	public static final String COL_NOM = "nom";
 	public static final String COL_POSTE = "id_poste";
+	public static final String[] COLS = 
+			new String[] {COL_ID, COL_NOM, COL_POSTE};
 
 	
 	/**
@@ -28,8 +30,7 @@ public class DbUtilisateur {
 	{
 		ArrayList<Utilisateur> utilisateurs = new ArrayList<Utilisateur>();
 		SQLiteDatabase db = new DatabaseSQLite(context).getReadableDatabase();
-		Cursor cursor = db.query(TABLE_NAME, new String[] { COL_ID, COL_POSTE,
-				COL_NOM }, null, null, null, null, COL_NOM);
+		Cursor cursor = db.query(TABLE_NAME, COLS, null, null, null, null, COL_NOM);
 		
 		if (cursor.moveToFirst()) 
 		{
@@ -38,7 +39,7 @@ public class DbUtilisateur {
                 u.setId(Integer.parseInt(cursor.getString(cursor.getColumnIndex(COL_ID))));
                 String tempIdPoste = cursor.getString(cursor.getColumnIndex(COL_POSTE));
                 Poste p = null;
-                if(tempIdPoste == "NULL")
+                if(tempIdPoste != null && !tempIdPoste.equals("NULL"))
                 {
                 	p = DbPoste.GetPosteById(Integer.parseInt(tempIdPoste), context);
                 }
@@ -50,6 +51,7 @@ public class DbUtilisateur {
             } while (cursor.moveToNext());
         }
 		
+		db.close();
 		return utilisateurs;
 	}
 	
@@ -70,6 +72,7 @@ public class DbUtilisateur {
         int retour =  db.update(TABLE_NAME, values, COL_ID + " = ?",
                 new String[] { String.valueOf(utilisateur.getId()) });
         
+        db.close();
 		return retour == 1 ? true : false;
 	}
 	
@@ -89,7 +92,49 @@ public class DbUtilisateur {
         int retour =  db.update(TABLE_NAME, values, COL_ID + " = ?",
                 new String[] { String.valueOf(utilisateur.getId()) });
         
+        db.close();
 		return retour == 1 ? true : false;
+	}
+	
+	/**
+	 * Cherche l'utilisateur ayant l'ID passé en paramètre.
+	 * @param IdUtilisateur
+	 * @param context
+	 * @return Un Utilisateur ou null si aucun utilisateur n'a cet ID
+	 */
+	public static Utilisateur GetUtilisateurById(int IdUtilisateur, Context context)
+	{
+		Utilisateur u = new Utilisateur();
+		SQLiteDatabase db = new DatabaseSQLite(context).getReadableDatabase();
+		Cursor cursor = db.query(DbUtilisateur.TABLE_NAME, 
+				COLS, 
+				COL_ID + " = ? ", 
+				new String[] { String.valueOf(IdUtilisateur)}, 
+				null, 
+				null, 
+				null);
+		if(cursor.moveToFirst())
+		{
+			u.setId(IdUtilisateur);
+			u.setNom(String.valueOf(cursor.getString(cursor.getColumnIndex(COL_NOM))));
+			String idPoste = cursor.getString(
+					cursor.getColumnIndex(COL_POSTE));
+			if(idPoste == null)
+			{
+				u.setPoste(null);
+			}else
+			{
+				u.setPoste(DbPoste.GetPosteById(Integer.parseInt(idPoste), context));
+			}
+			
+		}else
+		{
+			u = null;
+		}
+		
+		db.close();
+		return u;
+		
 	}
 
 }
